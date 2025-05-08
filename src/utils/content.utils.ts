@@ -26,7 +26,7 @@ export enum MetadataType {
 /**
  * Base interface for a tagged text segment (e.g., hashtag, mention).
  */
-export interface Tag {
+export interface ITag {
   /** The type of the tag */
   type: MetadataType;
 
@@ -43,21 +43,21 @@ export interface Tag {
 /**
  * Hashtag metadata (e.g., #hello).
  */
-export interface Hashtag extends Tag {
+export interface IHashtag extends ITag {
   type: MetadataType.Hashtag;
 }
 
 /**
  * Cashtag metadata (e.g., $BTC).
  */
-export interface Cashtag extends Tag {
+export interface ICashtag extends ITag {
   type: MetadataType.Cashtag;
 }
 
 /**
  * Link metadata with resolved URL.
  */
-export interface Link extends Tag {
+export interface ILink extends ITag {
   type: MetadataType.Link;
 
   /** Fully resolved URL (e.g., https://...) */
@@ -67,7 +67,7 @@ export interface Link extends Tag {
 /**
  * Mention metadata (e.g., @username).
  */
-export interface Mention extends Tag {
+export interface IMention extends ITag {
   type: MetadataType.Mention;
 
   /** Resolved profile link (e.g., https://twitter.com/...) */
@@ -83,28 +83,28 @@ export interface Mention extends Tag {
 /**
  * Emoji metadata (e.g., 😀).
  */
-export interface Emoji extends Tag {
+export interface IEmoji extends ITag {
   type: MetadataType.Emoji;
 }
 
 /**
  * Combined metadata extracted from a text block.
  */
-export interface TextMetadata {
+export interface ITextMetadata {
   /** List of extracted hashtags */
-  hashtags: Hashtag[];
+  hashtags: IHashtag[];
 
   /** List of extracted cashtags */
-  cashtags: Cashtag[];
+  cashtags: ICashtag[];
 
   /** List of extracted links */
-  links: Link[];
+  links: ILink[];
 
   /** List of extracted mentions */
-  mentions: Mention[];
+  mentions: IMention[];
 
   /** List of emojis in the text */
-  emojis: Emoji[];
+  emojis: IEmoji[];
 
   /** Optional web page preview or metadata (type: any) */
   webPage: any;
@@ -116,14 +116,14 @@ export interface TextMetadata {
  * Recognizes both Solana and EVM-compatible addresses.
  * EVM addresses are converted to lowercase for consistency.
  *
- * @param {Mention[]} mentions - Array of mention metadata objects.
+ * @param {IMention[]} mentions - Array of mention metadata objects.
  * @returns {string[]} A list of valid blockchain addresses found in the mentions.
  *
  * @example
  * const addresses = extractMentionAddresses(mentions);
  * // → ['0xabc...', '9v8x...']
  */
-export const extractMentionAddresses = (mentions: Mention[]): string[] => {
+export const extractMentionAddresses = (mentions: IMention[]): string[] => {
   const adresses = []
 
   for (const mention of mentions) {

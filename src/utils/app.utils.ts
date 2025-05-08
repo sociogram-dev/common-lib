@@ -23,13 +23,13 @@ export const urlRegex: RegExp =
  * If the variable is not defined, returns the provided default value.
  *
  * @param {string} key - The name of the environment variable.
- * @param {any} [def=null] - A default value if the variable is not set.
+ * @param {any} [defaults=null] - A default value if the variable is not set.
  * @returns {string} The value of the environment variable or the default.
  *
  * @example
  * const apiUrl = getEnvVar('API_URL', 'https://default.com');
  */
-export const getEnvVar = (key: string, def: any = null): string => process.env[key] ?? def
+export const getEnvVar = (key: string, defaults: any = null): string => process.env[key] ?? defaults
 
 /**
  * Checks if the application is running in production environment.

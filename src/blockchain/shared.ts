@@ -1,3 +1,4 @@
+import { AppEnv } from '../utils'
 import { isEvmCryptoDomain, isEvmAddress } from './evm'
 import { isSolanaCryptoDomain, isSolanaAddress } from './solana'
 
@@ -86,6 +87,40 @@ export const ChainTypes = new Map<ChainId, ChainType>([
   [ ChainId.SolanaTestnet, ChainType.Solana ],
   [ ChainId.SolanaDevnet, ChainType.Solana ],
 ])
+
+/**
+ * Checks if a given blockchain network (chainId) is available for the specified environment.
+ *
+ * - In `production`, only mainnets are allowed.
+ * - In other environments, testnets/devnets are also allowed.
+ *
+ * @param {ChainId} chainId - The blockchain network ID.
+ * @param {AppEnv} env - The current application environment.
+ * @returns {boolean} True if the chain is available for the environment.
+ *
+ * @example
+ * isAvailableChain(ChainId.Arbitrum, AppEnv.Production); // true
+ * isAvailableChain(ChainId.SolanaDevnet, AppEnv.Production); // false
+ */
+export const isAvailableChain = (chainId: ChainId, env: AppEnv): boolean => {
+  if (env === AppEnv.Production) {
+    return [
+      ChainId.Arbitrum,
+      ChainId.Ethereum,
+      ChainId.BSC,
+      ChainId.Optimism,
+      ChainId.Polygon,
+      ChainId.Solana,
+      ChainId.SolanaMainnetBeta,
+    ].includes(chainId)
+  }
+
+  return [
+    ChainId.Sepolia,
+    ChainId.SolanaDevnet,
+    ChainId.SolanaTestnet,
+  ].includes(chainId)
+}
 
 /**
  * Checks if the given string is a valid blockchain address (either EVM or Solana).
