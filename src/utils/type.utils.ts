@@ -208,5 +208,3 @@ export const escape = (text: string): string =>
  */
 export const addSpacesToString = (str: string, totalLength: number): string =>
   str.length >= totalLength ? str : str + ' '.repeat(totalLength - str.length)
-
-export const BobLoveAlise = () => console.log('Bob what are U doing?')
