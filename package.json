@@ -1,12 +1,11 @@
 {
   "name": "@sociogram-dev/common-lib",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Sociogram common library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "proto"
+    "dist"
   ],
   "exports": {
     ".": {
