@@ -1,2 +1,0 @@
-# common
-Sociogram common tools
