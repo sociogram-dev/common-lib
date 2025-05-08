@@ -1,0 +1,54 @@
+{
+  "name": "@sociogram-dev/common-lib",
+  "version": "1.0.5",
+  "description": "Sociogram common library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "proto"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-sociogram-dev:sociogram-dev/common-lib.git"
+  },
+  "keywords": [],
+  "author": "sociogram-dev <dev@sociogram.org>",
+  "license": "MIT",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/sociogram-dev/common-lib/issues"
+  },
+  "homepage": "https://github.com/sociogram-dev/common-lib#readme",
+  "dependencies": {
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/swagger": "^11.2.0",
+    "@solana/web3.js": "^2.0.0",
+    "dayjs": "^1.11.13",
+    "ethereumjs-util": "^7.1.5",
+    "ethers": "^6.14.0",
+    "rxjs": "^7.8.2",
+    "web3-token": "^1.0.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": ">=6.3.0",
+    "@typescript-eslint/parser": ">=6.3.0",
+    "eslint": "^9.23.0",
+    "eslint-plugin-import": ">=2.28.0",
+    "globals": "^16.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1"
+  }
+}
