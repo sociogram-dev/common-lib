@@ -3,6 +3,8 @@ import { verify } from 'web3-token'
 import { isValidAddress } from 'ethereumjs-util'
 import { ChainType, ChainTypes, ChainId } from './shared'
 
+export const zeroAddress = '0x0000000000000000000000000000000000000000'
+
 /**
  * Checks if the given string is a valid EVM (Ethereum-compatible) address.
  *

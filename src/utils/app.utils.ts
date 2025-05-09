@@ -10,6 +10,18 @@ export enum AppEnv {
 }
 
 /**
+ * Represents a binary toggle state (e.g., feature, setting, or flag).
+ * Can be used for enabling or disabling functionality.
+ *
+ * @example
+ * if (feature === ToggleState.On) { ... }
+ */
+export enum ToggleState {
+  On = 'on',
+  Off = 'off',
+}
+
+/**
  * Regular expression to match URLs in a string.
  *
  * @example

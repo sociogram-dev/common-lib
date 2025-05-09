@@ -1,4 +1,52 @@
 /**
+ * Utility type that allows a value of type `T` or `null`.
+ *
+ * Useful for optional fields where `undefined` is not expected.
+ *
+ * @example
+ * const name: Nullable<string> = null;
+ */
+export type Nullable<T> = T | null;
+
+/**
+ * Nullable version of the `string` type.
+ *
+ * @example
+ * const username: NullableString = 'Alice';
+ * const nickname: NullableString = null;
+ */
+export type NullableString = string | null;
+
+/**
+ * Nullable version of the `number` type.
+ *
+ * @example
+ * const age: NullableNumber = 30;
+ * const optionalScore: NullableNumber = null;
+ */
+export type NullableNumber = number | null;
+
+/**
+ * A flexible type used to describe TypeScript enums at runtime.
+ *
+ * Supports both:
+ * - regular enum values (string[] | number[])
+ * - mixed enums
+ * - reverse-mapped numeric enums (Record<number, string>)
+ *
+ * Useful for enum utilities like `getEnumValues`, `getEnumKeys`, etc.
+ *
+ * @example
+ * export enum Role { Admin = 'admin', User = 'user' }
+ * const values: EnumType = Object.values(Role); // ['admin', 'user']
+ */
+export type EnumType =
+  | string[]
+  | number[]
+  | (string | number)[]
+  | Record<number, string>;
+
+/**
  * Extracts the actual values from a TypeScript enum (both string and number enums).
  *
  * Handles:

@@ -1,5 +1,6 @@
 Sociogram Common Library
 
-- Blockchain
+- Enums
+- Interfaces
+- Blockchain: EVM, Solana
 - Utils
-- Protobuf
