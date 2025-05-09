@@ -122,7 +122,7 @@ export interface ITextMetadata {
  * // → ['0xabc...', '9v8x...']
  */
 export const extractMentionAddresses = (mentions: IMention[]): string[] => {
-  const adresses = []
+  const adresses: string[] = []
 
   for (const mention of mentions) {
     if (!mention.value) continue

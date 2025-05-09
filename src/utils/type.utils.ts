@@ -40,11 +40,7 @@ export type NullableNumber = number | null;
  * export enum Role { Admin = 'admin', User = 'user' }
  * const values: EnumType = Object.values(Role); // ['admin', 'user']
  */
-export type EnumType =
-  | string[]
-  | number[]
-  | (string | number)[]
-  | Record<number, string>;
+export type EnumType = string[] | number[] | (string | number)[] | Record<number, string>
 
 /**
  * Extracts the actual values from a TypeScript enum (both string and number enums).
@@ -64,15 +60,16 @@ export type EnumType =
  * enum NumberEnum { A, B }
  * getEnumValues(NumberEnum); // [0, 1]
  */
-export const getEnumValues = (enumType: object): (string | number)[] => {
-  if (typeof enumType !== 'object' || enumType === null) {
-    return []
-  }
+export const getEnumValues = (enumType: EnumType): (string | number)[] => {
+  if (typeof enumType !== 'object') return []
 
-  const values = Object.values(enumType)
+  const numericValues = Object.values(enumType)
+    .filter(value => typeof value === 'number')
+    .map(value => value.toString())
 
-  // filter out reverse mappings from number enums
-  return values.filter((value) => typeof value !== 'string' || !values.includes(Number(value)))
+  return Object.keys(enumType)
+    .filter(key => !numericValues.includes(key))
+    .map((key: string) => enumType[key])
 }
 
 /**
@@ -202,7 +199,7 @@ export const separateArray = (arr: any[], separator: string): any[] =>
   arr.reduce((acc, current, index: number) => {
     acc.push(current)
     if (index < arr.length - 1) acc.push(separator)
-    
+
     return acc
   }, [])
 
@@ -218,7 +215,7 @@ export const separateArray = (arr: any[], separator: string): any[] =>
  */
 export const round = (val: number, decimals: number = 6): number => {
   const multiplier = 10 ** decimals
-  
+
   return Math.round(val * multiplier) / multiplier
 }
 
