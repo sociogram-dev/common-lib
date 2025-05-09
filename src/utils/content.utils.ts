@@ -44,22 +44,20 @@ export interface ITag {
  * Hashtag metadata (e.g., #hello).
  */
 export interface IHashtag extends ITag {
-  type: MetadataType.Hashtag;
+  type: MetadataType;
 }
 
 /**
  * Cashtag metadata (e.g., $BTC).
  */
 export interface ICashtag extends ITag {
-  type: MetadataType.Cashtag;
+  type: MetadataType;
 }
 
 /**
  * Link metadata with resolved URL.
  */
 export interface ILink extends ITag {
-  type: MetadataType.Link;
-
   /** Fully resolved URL (e.g., https://...) */
   url: string;
 }
@@ -68,7 +66,7 @@ export interface ILink extends ITag {
  * Mention metadata (e.g., @username).
  */
 export interface IMention extends ITag {
-  type: MetadataType.Mention;
+  type: MetadataType;
 
   /** Resolved profile link (e.g., https://twitter.com/...) */
   url: string;
@@ -84,7 +82,7 @@ export interface IMention extends ITag {
  * Emoji metadata (e.g., 😀).
  */
 export interface IEmoji extends ITag {
-  type: MetadataType.Emoji;
+  type: MetadataType;
 }
 
 /**
@@ -133,6 +131,23 @@ export const extractMentionAddresses = (mentions: IMention[]): string[] => {
   }
 
   return adresses
+}
+
+/**
+ * Extracts all non-empty hashtag and cashtag values from the provided text metadata.
+ *
+ * @param {TextMetadata} metadata - Parsed metadata containing hashtags, cashtags, and other entities.
+ * @returns {string[]} Array of hashtag and cashtag values.
+ *
+ * @example
+ * const tags = metadataTags(metadata);
+ * // → ['Web3', 'BTC']
+ */
+export const extractMetadataTags = (metadata: ITextMetadata): string[] => {
+  return [
+    ...metadata.hashtags.map(tag => tag.value ? tag.value.toString() : '').filter(h => h.length > 0),
+    ...metadata.cashtags.map(tag => tag.value ? tag.value.toString() : '').filter(h => h.length > 0),
+  ]
 }
 
 /**
