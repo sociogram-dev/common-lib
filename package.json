@@ -1,6 +1,6 @@
 {
   "name": "@sociogram-dev/common-lib",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Sociogram common library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,6 +30,7 @@
   "homepage": "https://github.com/sociogram-dev/common-lib#readme",
   "dependencies": {
     "@nestjs/common": "^11.1.0",
+    "@nestjs/core": "^11.1.0",
     "@nestjs/swagger": "^11.2.0",
     "@solana/web3.js": "^2.0.0",
     "dayjs": "^1.11.13",
