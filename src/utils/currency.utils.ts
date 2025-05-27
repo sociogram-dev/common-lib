@@ -40,10 +40,13 @@ class CurrencyAmount {
    * Creates a new CurrencyAmount instance.
    *
    * @param input - Amount in decimal or atomic format.
-   * @param currencyCode - Currency code for this amount.
+   * @param code - Currency code for this amount.
    */
-  constructor(input: AmountType, currencyCode: CurrencyCode) {
-    const currency = currencyMap[currencyCode]
+  constructor(input: AmountType, code: CurrencyCode) {
+    const currency = currencyMap.get(code)
+
+    if (!currency) throw new Error('Invalid currency code')
+
     this.currency = currency
     this.amount = this.parseInput(input, currency.decimals)
   }
