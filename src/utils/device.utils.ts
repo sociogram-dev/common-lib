@@ -37,5 +37,5 @@ export const getPlatform = (userAgent?: string): Platform => {
   if (isAndroid) return Platform.Android
   if (isIOS) return Platform.IOS
 
-  return Platform.Desktop
+  return Platform.Web
 }
