@@ -1,6 +1,7 @@
 export * from './app.utils'
 export * from './bull.utils'
 export * from './content.utils'
+export * from './currency.utils'
 export * from './datetime.utils'
 export * from './device.utils'
 export * from './http.utils'
