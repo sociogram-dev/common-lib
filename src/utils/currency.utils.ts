@@ -204,6 +204,6 @@ class CurrencyAmount {
  * @param currencyCode - Code of the currency to use.
  * @returns A new CurrencyAmount instance.
  */
-export const currency = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
   return new CurrencyAmount(input, currencyCode)
 }

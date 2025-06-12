@@ -1,6 +1,6 @@
 {
   "name": "@sociogram-dev/common-lib",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Sociogram common library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,10 +29,11 @@
   },
   "homepage": "https://github.com/sociogram-dev/common-lib#readme",
   "dependencies": {
-    "@nestjs/common": "^11.1.0",
-    "@nestjs/core": "^11.1.0",
+    "@nestjs/common": "^11.1.3",
+    "@nestjs/core": "^11.1.3",
     "@nestjs/swagger": "^11.2.0",
     "@solana/web3.js": "^2.0.0",
+    "crypto": "^1.0.1",
     "dayjs": "^1.11.13",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^6.14.0",
