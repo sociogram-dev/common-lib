@@ -118,14 +118,14 @@ class CurrencyAmount {
 
   /**
    * Subtracts the given value from the current amount.
+   * Replaces current amount by new decreased amount.
    *
    * @param value - Value to subtract.
    * @returns The current instance for chaining.
    *
    * @example
    * const amt = new CurrencyAmount('2.00', 'USD');
-   * amt.subtract(0.75);
-   * // now amt represents 1.25 USD
+   * amt.subtract(0.75); // now amt represents 1.25 USD
    */
   subtract(value: string | number | bigint): CurrencyAmount {
     const subAmount = this.parseInput(value, this.currency.decimals)
