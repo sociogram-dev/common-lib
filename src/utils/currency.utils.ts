@@ -31,6 +31,11 @@ const currencyMap: Map<CurrencyCode, CurrencyInfo> = new Map([
  * A class to handle precise arithmetic and formatting of currency values.
  * Supports fiat and crypto currencies, internal atomic unit conversion,
  * and user-facing decimal formatting.
+ *
+ *@example
+ *  // Create a new CurrencyAmount for USD
+ *  const amt = new CurrencyAmount('1.23', 'USD');
+ *  console.log(amt);
  */
 class CurrencyAmount {
   private amount: bigint
@@ -56,6 +61,11 @@ class CurrencyAmount {
    *
    * @param value - Input value in decimal or atomic format.
    * @param decimals - Number of decimals for the currency.
+   *
+   * @example
+   *  // For a currency with 2 decimals, '1.23' becomes 123n
+   *  const atomic = this.parseInput('1.23', 2);
+   *  console.log(atomic); // 123n
    */
   private parseInput(value: string | number | bigint, decimals: number): bigint {
     if (typeof value === 'bigint') return value
@@ -77,6 +87,11 @@ class CurrencyAmount {
    *
    * @param value - Internal bigint amount.
    * @param decimals - Number of decimals for the currency.
+   *
+   * @example
+   *  // For a currency with 2 decimals, 123n becomes 1.23
+   *  const human = this.formatHuman(123n, 2);
+   *  console.log(human); // 1.23
    */
   private formatHuman(value: bigint, decimals: number): number {
     const str = value.toString().padStart(decimals + 1, '0')
@@ -88,8 +103,14 @@ class CurrencyAmount {
 
   /**
    * Adds the given value to the current amount.
+   *
    * @param value - Value to add.
    * @returns The current instance for chaining.
+   *
+   * @example
+   * const amt = new CurrencyAmount('1.00', 'USD');
+   * amt.add('0.50');
+   * // now amt represents 1.50 USD
    */
   add(value: string | number | bigint): CurrencyAmount {
     const addAmount = this.parseInput(value, this.currency.decimals)
@@ -100,8 +121,14 @@ class CurrencyAmount {
 
   /**
    * Subtracts the given value from the current amount.
+   *
    * @param value - Value to subtract.
    * @returns The current instance for chaining.
+   *
+   * @example
+   * const amt = new CurrencyAmount('2.00', 'USD');
+   * amt.subtract(0.75);
+   * // now amt represents 1.25 USD
    */
   subtract(value: string | number | bigint): CurrencyAmount {
     const subAmount = this.parseInput(value, this.currency.decimals)
@@ -179,6 +206,23 @@ class CurrencyAmount {
   }
 
   /**
+   * Checks if the current amount is positive (> 0).
+   *
+   * @returns true if amount > 0, otherwise false
+   *
+   * @example
+   * this.amount = 10n;
+   * this.isPositive(); // true
+   *
+   * @example
+   * this.amount = 0n;
+   * this.isPositive(); // false
+   */
+  isPositive(): boolean {
+    return this.amount > 0n
+  }
+
+  /**
    * Converts the internal atomic amount to a user-friendly decimal format.
    * Use this for UI display.
    * @returns A number representing the currency amount in decimal form.
@@ -203,6 +247,10 @@ class CurrencyAmount {
  * @param input - Input amount in decimal or atomic format.
  * @param currencyCode - Code of the currency to use.
  * @returns A new CurrencyAmount instance.
+ *
+ * @example
+ * const amt = currencyAmount('10.00', 'EUR');
+ * console.log(amt);
  */
 export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
   return new CurrencyAmount(input, currencyCode)
