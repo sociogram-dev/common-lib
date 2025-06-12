@@ -1,9 +1,8 @@
 /**
- * Supported currency codes.
+ * Platform's supported currency codes.
  */
 export enum CurrencyCode {
   USD = 'usd',
-  ETH = 'eth',
   SOL = 'sol',
 }
 
@@ -19,12 +18,11 @@ type CurrencyInfo = {
 type AmountType = string | number | bigint
 
 /**
- * Map of currency metadata used for conversions.
+ * Map of Platform currency metadata used for conversions.
  */
 const currencyMap: Map<CurrencyCode, CurrencyInfo> = new Map([
   [ CurrencyCode.USD, { code: CurrencyCode.USD, decimals: 2, name: 'US Dollar' } ],
   [ CurrencyCode.SOL, { code:  CurrencyCode.SOL, decimals: 9, name: 'Solana' } ],
-  [ CurrencyCode.ETH, { code:  CurrencyCode.ETH, decimals: 18, name: 'Ethereum' } ],
 ])
 
 /**
@@ -109,8 +107,7 @@ class CurrencyAmount {
    *
    * @example
    * const amt = new CurrencyAmount('1.00', 'USD');
-   * amt.add('0.50');
-   * // now amt represents 1.50 USD
+   * amt.add('0.50'); // now amt represents 1.50 USD
    */
   add(value: string | number | bigint): CurrencyAmount {
     const addAmount = this.parseInput(value, this.currency.decimals)
@@ -249,7 +246,7 @@ class CurrencyAmount {
  * @returns A new CurrencyAmount instance.
  *
  * @example
- * const amt = currencyAmount('10.00', 'EUR');
+ * const amt = currencyAmount('10.00', 'USD');
  * console.log(amt);
  */
 export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
