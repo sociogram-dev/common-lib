@@ -123,46 +123,34 @@ export const isAvailableChain = (chainId: ChainId, env: AppEnv): boolean => {
 }
 
 /**
- * Checks if the given string is a valid blockchain address (either EVM or Solana).
- *
- * @param {string} val - The address to validate.
- * @returns {boolean} True if the address is valid for either EVM or Solana.
- *
- * @example
- * isAddress('0x661892e6e27383152c...'); // true
- * isAddress('9v8xqQ...'); // true
- * isAddress('not-an-address'); // false
- */
-export const isAddress = (val: string): boolean =>
-  isEvmAddress(val) || isSolanaAddress(val)
-
-/**
  * Checks if a string could be a (partial) blockchain address fragment
  * for either EVM or Solana, based on allowed characters and max length.
+ * Immediately returns false if the input is shorter than the minimum length.
  *
  * @param val - The string to test.
- * @returns True if the string is a valid prefix/fragment of an EVM or Solana address.
+ * @param minValLength - Minimum length required before performing fragment validation. Defaults to 8.
+ * @returns True if the string is a valid prefix/fragment of an EVM or Solana address and meets the minimum length.
  *
  * @example
- * isAddressFragment("0x661892");      // true  (valid EVM fragment)
- * isAddressFragment("0xdeadbeef123"); // true  (valid EVM fragment)
- * isAddressFragment("9v8xqQ");        // true  (valid Solana fragment)
- * isAddressFragment("3CMCRgAB…");     // true  (valid Solana fragment)
- * isAddressFragment("hello123");      // false
- * isAddressFragment("0x123gh");       // false (invalid hex)
- * isAddressFragment("9v8xqQ!");       // false (invalid Base58 char)
+ * isAddressFragment("0x661892", 6);      // true  (length 8, valid EVM fragment)
+ * isAddressFragment("0x66", 8);          // false (too short)
+ * isAddressFragment("9v8xqQ", 4);        // true  (length 6 ≥ 4, valid Solana fragment)
+ * isAddressFragment("hello123", 8);      // false
  */
-export function isAddressFragment(val: string): boolean {
+export function isAddressFragment(val: string, minValLength: number = 8): boolean {
+  // Return false immediately if below minimum length
+  if (val.length < minValLength) return false
+
   // full-length constraints:
   const maxEvmLength = 42 // "0x" + 40 hex chars
   const maxSolLength = 44 // up to 44 Base58 chars
 
-  // EVM fragment: must start with "0x", only hex digits, max length 42
+  // EVM fragment: must start with "0x", only hex digits, and not exceed max length
   if (/^0x[0-9a-fA-F]*$/.test(val) && val.length <= maxEvmLength) {
     return true
   }
 
-  // Solana fragment: only Base58 chars, max length 44
+  // Solana fragment: only Base58 chars, and not exceed max length
   // Base58 alphabet excludes 0, O, I, and l
   const base58Pattern = /^[A-HJ-NP-Za-km-z1-9]*$/
   if (base58Pattern.test(val) && val.length <= maxSolLength) {
