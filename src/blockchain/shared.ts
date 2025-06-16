@@ -135,3 +135,39 @@ export const isAvailableChain = (chainId: ChainId, env: AppEnv): boolean => {
  */
 export const isAddress = (val: string): boolean =>
   isEvmAddress(val) || isSolanaAddress(val)
+
+/**
+ * Checks if a string could be a (partial) blockchain address fragment
+ * for either EVM or Solana, based on allowed characters and max length.
+ *
+ * @param val - The string to test.
+ * @returns True if the string is a valid prefix/fragment of an EVM or Solana address.
+ *
+ * @example
+ * isAddressFragment("0x661892");      // true  (valid EVM fragment)
+ * isAddressFragment("0xdeadbeef123"); // true  (valid EVM fragment)
+ * isAddressFragment("9v8xqQ");        // true  (valid Solana fragment)
+ * isAddressFragment("3CMCRgAB…");     // true  (valid Solana fragment)
+ * isAddressFragment("hello123");      // false
+ * isAddressFragment("0x123gh");       // false (invalid hex)
+ * isAddressFragment("9v8xqQ!");       // false (invalid Base58 char)
+ */
+export function isAddressFragment(val: string): boolean {
+  // full-length constraints:
+  const maxEvmLength = 42 // "0x" + 40 hex chars
+  const maxSolLength = 44 // up to 44 Base58 chars
+
+  // EVM fragment: must start with "0x", only hex digits, max length 42
+  if (/^0x[0-9a-fA-F]*$/.test(val) && val.length <= maxEvmLength) {
+    return true
+  }
+
+  // Solana fragment: only Base58 chars, max length 44
+  // Base58 alphabet excludes 0, O, I, and l
+  const base58Pattern = /^[A-HJ-NP-Za-km-z1-9]*$/
+  if (base58Pattern.test(val) && val.length <= maxSolLength) {
+    return true
+  }
+
+  return false
+}
