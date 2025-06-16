@@ -123,6 +123,20 @@ export const isAvailableChain = (chainId: ChainId, env: AppEnv): boolean => {
 }
 
 /**
+ * Checks if the given string is a valid blockchain address (either EVM or Solana).
+ *
+ * @param {string} val - The address to validate.
+ * @returns {boolean} True if the address is valid for either EVM or Solana.
+ *
+ * @example
+ * isAddress('0x215500AB015e50A2b4b1EaB4F005f0bF92879156'); // true
+ * isAddress('1ywa3NKfWRX3jpMxWydiWzELuSbdDUhTV5QnoGexjV3e'); // true
+ * isAddress('not-an-address'); // false
+ */
+export const isAddress = (val: string): boolean =>
+  isEvmAddress(val) || isSolanaAddress(val)
+
+/**
  * Checks if a string could be a (partial) blockchain address fragment
  * for either EVM or Solana, based on allowed characters and max length.
  * Immediately returns false if the input is shorter than the minimum length.
@@ -137,7 +151,7 @@ export const isAvailableChain = (chainId: ChainId, env: AppEnv): boolean => {
  * isAddressFragment("9v8xqQ", 4);        // true  (length 6 ≥ 4, valid Solana fragment)
  * isAddressFragment("hello123", 8);      // false
  */
-export function isAddressFragment(val: string, minValLength: number = 8): boolean {
+export const isAddressFragment = (val: string, minValLength: number = 8): boolean => {
   // Return false immediately if below minimum length
   if (val.length < minValLength) return false
 
