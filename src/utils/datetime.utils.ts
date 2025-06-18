@@ -1,6 +1,22 @@
 import dayjs from 'dayjs'
 
 /**
+ * Represents common time intervals.
+ */
+export enum Period {
+  /** One hour */
+  Hour = 'hour',
+  /** One day */
+  Day = 'day',
+  /** One week */
+  Week = 'week',
+  /** One month */
+  Month = 'month',
+  /** One year */
+  Year = 'year',
+}
+
+/**
  * Representing commonly used date formats based on strftime syntax.
  * These formats are useful for formatting dates in analytics, reports, and APIs.
  */
@@ -60,4 +76,67 @@ export const unixToDate = (timestamp: number): Date => {
   return isSeconds
     ? dayjs.unix(timestamp).toDate()
     : dayjs(timestamp).toDate()
+}
+
+/**
+ * Returns the Unix timestamp (in milliseconds) for the start of the given period.
+ *
+ * @param date   - The date object for which to calculate the start of the period.
+ * @param period - The time period (hour, day, week, month, or year).
+ * @returns The timestamp in milliseconds representing the start of the specified period.
+ *
+ * @example
+ * ```typescript
+ * * ```typescript
+ * * // Start of hour
+ * * const hourStart = getStartOf(new Date('2024-05-22T15:45:30Z'), Period.Hour)
+ * * console.log(hourStart) // 1716390000000
+ *
+ * // Start of day
+ * const dayStart = getStartOf(new Date('2024-05-22T15:45:00Z'), Period.Day)
+ * console.log(dayStart) // 1716390000000
+ *
+ * // Start of week (Sunday)
+ * const weekStart = getStartOf(new Date('2024-05-22T15:45:00Z'), Period.Week)
+ * console.log(weekStart) // 1716390000000
+ *
+ * // Start of month
+ * const monthStart = getStartOf(new Date('2024-05-22T15:45:00Z'), Period.Month)
+ * console.log(monthStart) // 1716390000000
+ *
+ * // Start of year
+ * const yearStart = getStartOf(new Date('2024-05-22T15:45:00Z'), Period.Year)
+ * console.log(yearStart) // 1716390000000
+ * ```
+ */
+export const getStartOf = (date: Date, period: Period): number => {
+  const start = new Date(date)
+
+  switch (period) {
+    case Period.Day:
+      start.setHours(0, 0, 0, 0)
+      break
+
+    case Period.Week:
+      // Set to Sunday (0) of the current week
+      const dayOfWeek = start.getDay()
+      start.setDate(start.getDate() - dayOfWeek)
+      start.setHours(0, 0, 0, 0)
+      break
+
+    case Period.Month:
+      start.setDate(1)
+      start.setHours(0, 0, 0, 0)
+      break
+
+    case Period.Year:
+      start.setMonth(0, 1)
+      start.setHours(0, 0, 0, 0)
+      break
+
+    default:
+      throw new Error(`Unsupported period: ${period}`)
+  }
+
+  return start.getTime()
 }
