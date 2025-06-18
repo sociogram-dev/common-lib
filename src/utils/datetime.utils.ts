@@ -17,6 +17,20 @@ export enum Period {
 }
 
 /**
+ * Enum representing predefined time ranges for filtering or querying data.
+ */
+export enum PeriodRange {
+  /** All available data since inception */
+  AllTime = 'all-time',
+
+  /** Data from the last 7 days */
+  LastWeek = 'last-week',
+
+  /** Data from the last 30 days */
+  LastMonth = 'last-month',
+}
+
+/**
  * Representing commonly used date formats based on strftime syntax.
  * These formats are useful for formatting dates in analytics, reports, and APIs.
  */
