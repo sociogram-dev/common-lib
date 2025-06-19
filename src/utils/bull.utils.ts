@@ -28,6 +28,9 @@ enum AnalyticJob {
 
   /** Init default metric counters */
   InitMetrics = `${BullContext.Analytic}.init-metrics`,
+
+  /** Collect user info based on its User-Agent request. */
+  IdentifyUser = `${BullContext.Analytic}.identify-user`,
 }
 
 /**

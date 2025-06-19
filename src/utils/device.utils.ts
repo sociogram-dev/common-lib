@@ -70,12 +70,10 @@ export const getPlatform = (userAgent?: string): Platform => {
  * @returns The detected OS as one of the `OS` enum values.
  *
  * @example
- * getOS(navigator.userAgent);
- * // e.g. "Windows" on a Windows machine
+ * getOS("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/..."); // Windows
  *
  * @example
- * getOS("Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)...");
- * // returns OS.IOS
+ * getOS("Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)..."); // IOS
  */
 export const getOS = (userAgent: string): OS => {
   const ua = userAgent.toLowerCase()
@@ -101,4 +99,43 @@ export const getOS = (userAgent: string): OS => {
   }
 
   return OS.Other
+}
+
+/**
+ * Extracts the primary language code from the Accept-Language header.
+ *
+ * @param acceptLanguage - The Accept-Language header value
+ * @param defaultLang - The language code in not defined
+ * @returns The primary language code (e.g., 'en', 'uk', 'fr') or 'en' as fallback
+ *
+ * @examples
+ * ```typescripte
+ * getLanguageCode('en-US,en;q=0.9,uk;q=0.8') // 'en'
+ * getLanguageCode('uk-UA,uk;q=0.9') // 'uk'
+ * getLanguageCode('fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7') // 'fr'
+ * getLanguageCode('') // 'en'
+ * getLanguageCode(undefined) // 'en'
+ * ```
+ */
+export const getLangCode = (acceptLanguage?: string, defaultLang: string = 'en'): string => {
+  if (!acceptLanguage) return defaultLang
+
+  // parse Accept-Language header
+  // format: "en-US,en;q=0.9,uk;q=0.8,fr;q=0.7"
+  const langs = acceptLanguage
+    .split(',')
+    .map(lang => {
+      const [ code, qValue ] = lang.trim().split(';')
+      const quality = qValue ? parseFloat(qValue.replace('q=', '')) : 1.0
+
+      return { code: code.trim(), quality: isNaN(quality) ? 1.0 : quality }
+    })
+    .sort((a, b) => b.quality - a.quality) // Sort by quality (preference)
+
+  if (langs.length === 0) return defaultLang
+
+  // get the primary language code (before the hyphen)
+  const primaryLang = langs[0].code.split('-')[0].toLowerCase()
+
+  return primaryLang || defaultLang
 }
