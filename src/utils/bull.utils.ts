@@ -23,8 +23,8 @@ export enum BullContext {
  * Job names for analytics processing.
  */
 enum AnalyticJob {
-  /** Handles user behavior tracking and analytics data collection. */
-  UserAction = `${BullContext.Analytic}.user-action`,
+  /** Handle earnings. */
+  Earnings = `${BullContext.Analytic}.earnings`,
 
   /** Init default metric counters */
   InitMetrics = `${BullContext.Analytic}.init-metrics`,
