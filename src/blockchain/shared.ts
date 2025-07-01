@@ -167,7 +167,9 @@ export const isAddressFragment = (val: string, minValLength: number = 8): boolea
   // Solana fragment: only Base58 chars, and not exceed max length
   // Base58 alphabet excludes 0, O, I, and l
   const base58Pattern = /^[A-HJ-NP-Za-km-z1-9]*$/
-  if (base58Pattern.test(val) && val.length <= maxSolLength) {
+  const hasDigit = /[1-9]/.test(val)
+
+  if (base58Pattern.test(val) && hasDigit && val.length <= maxSolLength) {
     return true
   }
 
