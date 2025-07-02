@@ -204,3 +204,27 @@ export const escape = (text: string): string =>
  */
 export const addSpacesToString = (str: string, totalLength: number): string =>
   str.length >= totalLength ? str : str + ' '.repeat(totalLength - str.length)
+
+/**
+ * Capitalizes the first character of a string.
+ *
+ * @param {string} input - The string to transform.
+ * @param {boolean} [lowerRest=false] - Whether to convert the rest of the string to lowercase.
+ * @returns {string} The transformed string.
+ *
+ * @example
+ * capitalizeFirst('hello');           // "Hello"
+ * capitalizeFirst('hELLO');           // "HELLO"
+ * capitalizeFirst('hELLO', true);     // "Hello"
+ * capitalizeFirst('');                // ""
+ */
+export const ucfirst = (input: string, lowerRest: boolean = false): string => {
+  if (input.length === 0) return ''
+
+  const firstChar = input.charAt(0).toUpperCase()
+  const rest = input.slice(1)
+
+  return lowerRest
+    ? firstChar + rest.toLowerCase()
+    : firstChar + rest
+}
