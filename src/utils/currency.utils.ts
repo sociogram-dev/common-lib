@@ -47,7 +47,7 @@ export type AmountFormats = {
  * Map of Platform currency metadata used for conversions.
  */
 const currencyMap: Map<CurrencyCode, CurrencyInfo> = new Map([
-  [ CurrencyCode.USD, { code: CurrencyCode.USD, decimals: 2, name: 'US Dollar', category: CurrencyCategory.Fiat } ],
+  [ CurrencyCode.USD, { code: CurrencyCode.USD, decimals: 4, name: 'US Dollar', category: CurrencyCategory.Fiat } ],
   [ CurrencyCode.SOL, { code:  CurrencyCode.SOL, decimals: 9, name: 'Solana', category:  CurrencyCategory.Crypto } ],
 ])
 
@@ -93,22 +93,18 @@ class CurrencyAmount {
   private parseInput(value: string | number | bigint): bigint {
     if (typeof value === 'bigint') return value
 
-    let num = typeof value === 'number' ? value.toString() : value
+    let num = (typeof value === 'number') ? value.toString() : value
     const decimals = this.currency.decimals
 
-    // // prepare fiat without decimals
-    // if (this.currency.category === CurrencyCategory.Fiat && !num.includes('.')) {
-    //   num = `${num}.${'0'.repeat(decimals)}`
-    // }
-
-    if (num.includes('.')) {
-      const [ intPart, fracPart ] = num.split('.')
-      const padded = fracPart.padEnd(decimals, '0').slice(0, decimals)
-      
-      return BigInt(intPart + padded)
+    // if it is fiat and there is no decimal point → 10 → "10.00" (for 2 digits)
+    if (this.currency.category === CurrencyCategory.Fiat && !num.includes('.')) {
+      num = num + '.' + '0'.repeat(decimals)
     }
 
-    return BigInt(num)
+    const [ intPart, fracPart = '' ] = num.split('.')
+    const padded = fracPart.padEnd(decimals, '0').slice(0, decimals)
+    
+    return BigInt(intPart + padded)
   }
 
   /**
