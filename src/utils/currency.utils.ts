@@ -26,6 +26,11 @@ type CurrencyInfo = {
 
 type AmountType = string | number | bigint
 
+enum AmountFormat {
+  Atomic = 'atomic',
+  Decimal = 'decimal',
+}
+
 /**
  * Represents an amount in both atomic (string) and decimal (number) formats.
  */
@@ -63,6 +68,7 @@ const currencyMap: Map<CurrencyCode, CurrencyInfo> = new Map([
  */
 class CurrencyAmount {
   private amount: bigint
+  private format?: AmountFormat
   private readonly currency: CurrencyInfo
 
   /**
@@ -71,12 +77,13 @@ class CurrencyAmount {
    * @param input - Amount in decimal or atomic format.
    * @param code - Currency code for this amount.
    */
-  constructor(input: AmountType, code: CurrencyCode) {
+  constructor(input: AmountType, code: CurrencyCode, format?: AmountFormat) {
     const currency = currencyMap.get(code)
 
     if (!currency) throw new Error('Invalid currency code')
 
     this.currency = currency
+    this.format = format
     this.amount = this.parseInput(input)
   }
 
@@ -96,15 +103,23 @@ class CurrencyAmount {
     let num = (typeof value === 'number') ? value.toString() : value
     const decimals = this.currency.decimals
 
-    // if it is fiat and there is no decimal point → 10 → "10.00" (for 2 digits)
-    if (this.currency.category === CurrencyCategory.Fiat && !num.includes('.')) {
+    // ❗ if is fiat and there is no decimal point then 10 to "10.00" (for 2 digits) ❗
+    if (
+      CurrencyCategory.Fiat === this.currency.category
+      && AmountFormat.Decimal === this.format
+      && !num.includes('.')
+    ) {
       num = num + '.' + '0'.repeat(decimals)
     }
 
-    const [ intPart, fracPart = '' ] = num.split('.')
-    const padded = fracPart.padEnd(decimals, '0').slice(0, decimals)
-    
-    return BigInt(intPart + padded)
+    if (num.includes('.')) {
+      const [ intPart, fracPart ] = num.split('.')
+      const padded = fracPart.padEnd(decimals, '0').slice(0, decimals)
+
+      return BigInt(intPart + padded)
+    }
+
+    return BigInt(num)
   }
 
   /**
@@ -298,4 +313,17 @@ class CurrencyAmount {
  */
 export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
   return new CurrencyAmount(input, currencyCode)
+}
+
+export const atomicCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+  if (typeof input === 'number') throw new Error('Atomic amount cannot be a number')
+  if (typeof input === 'string' && String(input).includes('.')) throw new Error('Atomic amount cannot contain decimals')
+
+  return new CurrencyAmount(input, currencyCode, AmountFormat.Atomic)
+}
+
+export const decimalCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+  if (typeof input !== 'number') throw new Error('Decimal amount must be a number')
+
+  return new CurrencyAmount(input, currencyCode, AmountFormat.Decimal)
 }
