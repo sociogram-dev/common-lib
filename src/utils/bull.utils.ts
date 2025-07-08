@@ -107,7 +107,7 @@ enum UserJob {
   Delete = `${BullContext.User}.delete-all-data`,
 }
 
-enum UserServiceJob {
+enum UserServicesJob {
   UpdateBlockchainData = `${BullContext.UserServices}.update-blockchain-data`,
   UpdateWalletBalances = `${BullContext.UserServices}.update-wallet-balances`,
   UpdateTwitterData = `${BullContext.UserServices}.update-twitter-data`,
@@ -129,7 +129,7 @@ interface JobNameMap {
   [BullContext.RewardPool]: typeof RewardPoolJob,
   [BullContext.Notification]: typeof NotificationJob,
   [BullContext.User]: typeof UserJob,
-  [BullContext.UserServices]: typeof UserServiceJob,
+  [BullContext.UserServices]: typeof UserServicesJob,
   [BullContext.Websocket]: typeof WebsocketJob,
   [BullContext.Twitter]: typeof TwitterJob,
 }
@@ -145,7 +145,7 @@ const jobMap: JobNameMap = {
   [BullContext.RatingSystem]: RatingSystemJob,
   [BullContext.Notification]: NotificationJob,
   [BullContext.User]: UserJob,
-  [BullContext.UserServices]: UserServiceJob,
+  [BullContext.UserServices]: UserServicesJob,
   [BullContext.Websocket]: WebsocketJob,
   [BullContext.Twitter]: TwitterJob,
 }
