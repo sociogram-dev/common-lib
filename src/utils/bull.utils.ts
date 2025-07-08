@@ -97,7 +97,7 @@ enum UserServiceJob {
   UpdateTwitterData = `${BullContext.UserService}.update-twitter-data`,
 }
 
-interface JobMap {
+interface JobNameMap {
   [BullContext.Analytic]: typeof AnalyticJob,
   [BullContext.Comment]: typeof CommentJob,
   [BullContext.Giveaway]: typeof GiveawayJob,
@@ -110,7 +110,7 @@ interface JobMap {
   [BullContext.UserService]: typeof UserServiceJob,
 }
 
-const jobMap: JobMap = {
+const jobMap: JobNameMap = {
   [BullContext.Analytic]: AnalyticJob,
   [BullContext.Comment]: CommentJob,
   [BullContext.Giveaway]: GiveawayJob,
@@ -136,7 +136,7 @@ const jobMap: JobMap = {
  * const jobName = analyticCtx.job.UserAction // "analytic.user-action"
  * ```
  */
-class BullContextManger<T extends keyof JobMap> {
+class BullContextManger<T extends keyof JobNameMap> {
   constructor(readonly context: T) {
   }
 
@@ -152,7 +152,7 @@ class BullContextManger<T extends keyof JobMap> {
    * console.log(ctx.queue) // "analytic_queue"
    * ```
    */
-  get queue(): string {
+  get queueName(): string {
     return `${this.context}_queue`
   }
 
@@ -168,9 +168,9 @@ class BullContextManger<T extends keyof JobMap> {
    * const jobName = ctx.job.RatingPoints // comment.rating-points
    * ```
    */
-  get job(): JobMap[T] {
+  get jobName(): JobNameMap[T] {
     return jobMap[this.context]
   }
 }
 
-export const createBullContext = <T extends keyof JobMap>(context: T): BullContextManger<T> => new BullContextManger(context)
+export const createBullContext = <T extends keyof JobNameMap>(context: T): BullContextManger<T> => new BullContextManger(context)
