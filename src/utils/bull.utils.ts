@@ -8,13 +8,14 @@ export enum BullContext {
   Tweeter = 'tweeter',
   Notification = 'notification',
   Publication = 'publication',
-  RewardPool = 'reward_pool',
+  RewardPool = 'reward-pool',
   Comment = 'comment',
   Transaction = 'transaction',
   User = 'user',
+  UserService = 'user-service',
   Reaction = 'reaction',
   Slack = 'slack',
-  Rating = 'rating',
+  RatingSystem = 'rating-system',
   Trades = 'trades',
   Websocket = 'websocket',
 }
@@ -68,12 +69,45 @@ enum ReactionJob {
   DistributeTips = `${BullContext.Reaction}.distribute-tips`,
 }
 
+enum SlackJob {
+  DistributeTips = `${BullContext.Slack}.distribute-tips`,
+}
+
+enum RatingSystemJob {
+  EventTrigger = `${BullContext.RatingSystem}.trigger`,
+}
+
+enum NotificationJob {
+  Send = `${BullContext.Slack}.send`,
+  SendSlackMessage = `${BullContext.Slack}.send-slack-message`
+}
+
+enum UserJob {
+  UpdateTotalBalance = `${BullContext.User}.update-total-balance`,
+  UpdateTotalEarned = `${BullContext.User}.update-total-earned`,
+  RewardUser = `${BullContext.User}.sociogram-reward`,
+  BanUser = `${BullContext.User}.sociogram-ban`,
+  UnbanUser = `${BullContext.User}.sociogram-unban`,
+  DeleteUserData = `${BullContext.User}.delete-data`,
+}
+
+enum UserServiceJob {
+  UpdateBlockchainData = `${BullContext.UserService}.update-blockchain-data`,
+  UpdateWalletBalances = `${BullContext.UserService}.update-wallet-balances`,
+  UpdateTwitterData = `${BullContext.UserService}.update-twitter-data`,
+}
+
 interface JobMap {
   [BullContext.Analytic]: typeof AnalyticJob,
   [BullContext.Comment]: typeof CommentJob,
   [BullContext.Giveaway]: typeof GiveawayJob,
   [BullContext.Publication]: typeof PublicationJob,
   [BullContext.Reaction]: typeof ReactionJob,
+  [BullContext.Slack]: typeof SlackJob,
+  [BullContext.RatingSystem]: typeof RatingSystemJob,
+  [BullContext.Notification]: typeof NotificationJob,
+  [BullContext.User]: typeof UserJob,
+  [BullContext.UserService]: typeof UserServiceJob,
 }
 
 const jobMap: JobMap = {
@@ -82,6 +116,11 @@ const jobMap: JobMap = {
   [BullContext.Giveaway]: GiveawayJob,
   [BullContext.Publication]: PublicationJob,
   [BullContext.Reaction]: ReactionJob,
+  [BullContext.Slack]: SlackJob,
+  [BullContext.RatingSystem]: RatingSystemJob,
+  [BullContext.Notification]: NotificationJob,
+  [BullContext.User]: UserJob,
+  [BullContext.UserService]: UserServiceJob,
 }
 
 /**
