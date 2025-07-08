@@ -30,6 +30,16 @@ export enum Platform {
 }
 
 /**
+ * Enum representing supported mobile platforms.
+ */
+export enum MobilePlatform {
+  /** Android device */
+  Android = 'android',
+  /** iPhone iOS device */
+  IOS = 'ios',
+}
+
+/**
  * Enum representing supported operating systems.
  */
 export enum OS {
