@@ -5,14 +5,14 @@
 export enum BullContext {
   Analytic = 'analytic',
   Giveaway = 'giveaway',
-  Tweeter = 'tweeter',
+  Twitter = 'tweeter',
   Notification = 'notification',
   Publication = 'publication',
   RewardPool = 'reward-pool',
   Comment = 'comment',
   Transaction = 'transaction',
   User = 'user',
-  UserService = 'user-service',
+  UserServices = 'user-services',
   Reaction = 'reaction',
   Slack = 'slack',
   RatingSystem = 'rating-system',
@@ -70,31 +70,52 @@ enum ReactionJob {
 }
 
 enum SlackJob {
-  DistributeTips = `${BullContext.Slack}.distribute-tips`,
+  Send = `${BullContext.Slack}.send-slack-message`
 }
 
 enum RatingSystemJob {
   EventTrigger = `${BullContext.RatingSystem}.trigger`,
+  UpdateUserRating = `${BullContext.RatingSystem}.update-user-rating`,
+  UpdateCommentRating = `${BullContext.RatingSystem}.update-comment-rating`,
+  UpdatePublicationRating = `${BullContext.RatingSystem}.update-publication-rating`,
+  DecreasePublicationRating = `${BullContext.RatingSystem}.decrease-publication-rating`,
+  UpdateRatingCriterias = `${BullContext.RatingSystem}.update-rating-criterias`,
+  RemoveParticipantRewardAction = `${BullContext.RatingSystem}.remove-participant-reward-action`,
+}
+
+enum RewardPoolJob {
+  DetermineEarnerRewardShare = `${BullContext.RewardPool}.process-earner-reward-share`,
+  RemoveEarnerRewardShare = `${BullContext.RewardPool}.remove-earner-reward-share`,
+  DetermineEarners = `${BullContext.RewardPool}.determine-earners`,
+  DistributeRewardPool = `${BullContext.RewardPool}.distribute-reward-pool`,
 }
 
 enum NotificationJob {
   Send = `${BullContext.Slack}.send`,
-  SendSlackMessage = `${BullContext.Slack}.send-slack-message`
+}
+
+enum WebsocketJob {
+  PaymentUpdated = `${BullContext.Websocket}.updated`,
 }
 
 enum UserJob {
   UpdateTotalBalance = `${BullContext.User}.update-total-balance`,
   UpdateTotalEarned = `${BullContext.User}.update-total-earned`,
-  RewardUser = `${BullContext.User}.sociogram-reward`,
-  BanUser = `${BullContext.User}.sociogram-ban`,
-  UnbanUser = `${BullContext.User}.sociogram-unban`,
-  DeleteUserData = `${BullContext.User}.delete-data`,
+  Reward = `${BullContext.User}.sociogram-reward`,
+  Ban = `${BullContext.User}.sociogram-ban`,
+  Unban = `${BullContext.User}.sociogram-unban`,
+  Delete = `${BullContext.User}.delete-all-data`,
 }
 
 enum UserServiceJob {
-  UpdateBlockchainData = `${BullContext.UserService}.update-blockchain-data`,
-  UpdateWalletBalances = `${BullContext.UserService}.update-wallet-balances`,
-  UpdateTwitterData = `${BullContext.UserService}.update-twitter-data`,
+  UpdateBlockchainData = `${BullContext.UserServices}.update-blockchain-data`,
+  UpdateWalletBalances = `${BullContext.UserServices}.update-wallet-balances`,
+  UpdateTwitterData = `${BullContext.UserServices}.update-twitter-data`,
+}
+
+enum TwitterJob {
+  CheckTweetByTag = `${BullContext.Twitter}.check-tweet-by-tag`,
+  CheckTweetById = `${BullContext.Twitter}.check-tweet-by-id`,
 }
 
 interface JobNameMap {
@@ -105,9 +126,12 @@ interface JobNameMap {
   [BullContext.Reaction]: typeof ReactionJob,
   [BullContext.Slack]: typeof SlackJob,
   [BullContext.RatingSystem]: typeof RatingSystemJob,
+  [BullContext.RewardPool]: typeof RewardPoolJob,
   [BullContext.Notification]: typeof NotificationJob,
   [BullContext.User]: typeof UserJob,
-  [BullContext.UserService]: typeof UserServiceJob,
+  [BullContext.UserServices]: typeof UserServiceJob,
+  [BullContext.Websocket]: typeof WebsocketJob,
+  [BullContext.Twitter]: typeof TwitterJob,
 }
 
 const jobMap: JobNameMap = {
@@ -116,11 +140,14 @@ const jobMap: JobNameMap = {
   [BullContext.Giveaway]: GiveawayJob,
   [BullContext.Publication]: PublicationJob,
   [BullContext.Reaction]: ReactionJob,
+  [BullContext.RewardPool]: RewardPoolJob,
   [BullContext.Slack]: SlackJob,
   [BullContext.RatingSystem]: RatingSystemJob,
   [BullContext.Notification]: NotificationJob,
   [BullContext.User]: UserJob,
-  [BullContext.UserService]: UserServiceJob,
+  [BullContext.UserServices]: UserServiceJob,
+  [BullContext.Websocket]: WebsocketJob,
+  [BullContext.Twitter]: TwitterJob,
 }
 
 /**
