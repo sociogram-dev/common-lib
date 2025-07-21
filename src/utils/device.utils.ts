@@ -184,6 +184,47 @@ export const getLangCode = (acceptLang?: string, defaultLang: string = 'en'): st
 }
 
 /**
+ * Extracts the country code from the Accept-Language HTTP header.
+ * Falls back to geoLocationCountry if no country code is found in the header.
+ *
+ * @param {string | undefined} acceptLang - The Accept-Language header value (e.g., "en-US,en;q=0.9,uk;q=0.8").
+ * @param {string} geoLocationCountry - Fallback country code (from IP geolocation or default), e.g., 'us'.
+ * @returns {string} The extracted country code (in lowercase), or the fallback.
+ *
+ * @example
+ * getCountryCode("en-US,en;q=0.9", "us") // returns "us"
+ * getCountryCode("uk-UA,uk;q=0.8", "us") // returns "ua"
+ * getCountryCode("fr", "us") // returns "us" (no country in header, fallback used)
+ */
+export const getCountryCode = (acceptLang?: string, geoLocationCountry: string = 'us'): string => {
+  if (!acceptLang) return geoLocationCountry
+
+  // Split the Accept-Language header into language entries, handle q-values (priorities)
+  const langs = acceptLang
+    .split(',')
+    .map(lang => {
+      const [ code, qValue ] = lang.trim().split(';')
+      const quality = qValue ? parseFloat(qValue.replace('q=', '')) : 1.0
+
+      return { code: code.trim(), quality: isNaN(quality) ? 1.0 : quality }
+    })
+    // Sort by priority (q-value descending)
+    .sort((a, b) => b.quality - a.quality)
+
+  if (langs.length === 0) return geoLocationCountry
+
+  // Try to extract the country code from the first language entry
+  const parts = langs[0].code.split('-')
+
+  if (parts.length >= 2) {
+    return parts[1].toLowerCase()
+  }
+
+  // No country code found in Accept-Language, fallback to geo location
+  return geoLocationCountry
+}
+
+/**
  * Checks if the user agent string belongs to a bot/crawler.
  *
  * @param userAgent - User agent string (lowercase)
