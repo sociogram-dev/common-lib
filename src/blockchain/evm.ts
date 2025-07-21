@@ -74,3 +74,27 @@ export const verifyEvmSignature = (address: string, signature: string): void => 
     throw new Error('Address is not verified')
   }
 }
+
+/**
+ * Extracts a list of function names from a contract ABI.
+ *
+ * @param {any[]} abi - The contract ABI array.
+ * @returns {string[]} An array of function names defined in the ABI.
+ *
+ * @example
+ * const abi = [
+ *   { type: 'function', name: 'transfer' },
+ *   { type: 'function', name: 'balanceOf' },
+ *   { type: 'event', name: 'Transfer' }
+ * ];
+ *
+ * getAbiFunctions(abi);
+ * // Returns: ['transfer', 'balanceOf']
+ */
+export const getAbiFunctions = (input: any[] | string): string[] => {
+  const abi = typeof input === 'string' ? JSON.parse(input) : input
+
+  return abi
+    .filter((item: { type: string; name: any }) => item.type === 'function' && item.name)
+    .map((item: { name: any }) => item.name)
+}
