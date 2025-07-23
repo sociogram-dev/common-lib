@@ -154,3 +154,50 @@ export const getStartOf = (date: Date, period: Period): number => {
 
   return start.getTime()
 }
+
+/**
+ * Validates a date range.
+ *
+ * Ensures that:
+ *  - the start date is not after the end date;
+ *  - optionally, both dates must be in the future relative to now.
+ *
+ * @param {string|Date} start - The start of the range (any format supported by dayjs).
+ * @param {string|Date} end - The end of the range.
+ * @param {object} [options] - Additional validation options.
+ * @param {boolean} [options.mustBeFuture=false] - If true, both dates must be strictly after the current time.
+ * @returns {boolean} True if the range is valid, false otherwise.
+ *
+ * @example
+ * validateDateRange('2025-01-01', '2025-02-01');
+ * // → true
+ *
+ * @example
+ * // start is after end
+ * validateDateRange('2025-03-01', '2025-02-01');
+ * // → false
+ *
+ * @example
+ * // both dates must be in the future
+ * validateDateRange('2025-12-01', '2025-12-31', { mustBeFuture: true });
+ * // → true  (if run before December 2025)
+ */
+export const validateDateRange = (start: Date, end: Date, greaterNow: boolean = true): boolean => {
+  const startDay = dayjs(start)
+  const endDay = dayjs(end)
+
+  // both dates must be valid
+  if (!startDay.isValid() || !endDay.isValid()) return false
+
+  // start must not be after end
+  if (startDay.isAfter(endDay)) return false
+
+  // if required, both dates must be strictly in the future
+  if (greaterNow) {
+    const now = dayjs()
+
+    if (!startDay.isAfter(now) || !endDay.isAfter(now)) return false
+  }
+
+  return true
+}
