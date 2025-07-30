@@ -165,3 +165,29 @@ export const toWords = (text: string): string[] => {
 
   return [ ...segments ].filter(s => s.isWordLike).map(s => s.segment)
 }
+
+/**
+ * Converts a string from camelCase, kebab-case, or space-separated text into snake_case.
+ *
+ * @param {string} str - The input string to be transformed.
+ * @returns {string} A snake_case version of the input.
+ *
+ * @example
+ * toSnakeCase('helloWorld');      // 'hello_world'
+ * toSnakeCase('Hello World!!');   // 'hello_world'
+ * toSnakeCase('foo-bar-baz');     // 'foo_bar_baz'
+ * toSnakeCase('__FOO__Bar__');    // 'foo_bar'
+ */
+export const toSnakeCase = (str: string): string => {
+  return str
+    // 1) Insert underscore between lowercase/number and uppercase letters (camelCase)
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+    // 2) Replace spaces and hyphens with underscores
+    .replace(/[-\s]+/g, '_')
+    // 3) Convert the entire string to lowercase for consistent snake_case
+    .toLowerCase()
+    // 4) Collapse multiple consecutive underscores into a single one
+    .replace(/__+/g, '_')
+    // 5) Trim any leading or trailing underscores
+    .replace(/^_+|_+$/g, '')
+}

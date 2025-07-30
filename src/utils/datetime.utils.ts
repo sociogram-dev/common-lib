@@ -183,20 +183,20 @@ export const getStartOf = (date: Date, period: Period): number => {
  * // → true  (if run before December 2025)
  */
 export const validateDateRange = (start: Date, end: Date, greaterNow: boolean = true): boolean => {
-  const startDay = dayjs(start)
-  const endDay = dayjs(end)
+  const startDate = dayjs(start)
+  const endDate = dayjs(end)
 
   // both dates must be valid
-  if (!startDay.isValid() || !endDay.isValid()) return false
+  if (!startDate.isValid() || !endDate.isValid()) return false
 
   // start must not be after end
-  if (startDay.isAfter(endDay)) return false
+  if (startDate.isAfter(endDate)) return false
 
   // if required, both dates must be strictly in the future
   if (greaterNow) {
     const now = dayjs()
 
-    if (!startDay.isAfter(now) || !endDay.isAfter(now)) return false
+    if (!startDate.isAfter(now) || !endDate.isAfter(now)) return false
   }
 
   return true
