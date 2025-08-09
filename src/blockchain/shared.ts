@@ -22,6 +22,14 @@ export enum ChainId {
   SolanaDevnet = 103,
 }
 
+export enum ChainValue {
+  Ethereum = 'eth',
+  Optimism = 'optimism',
+  BSC = 'bsc',
+  Polygon = 'polygon',
+  Arbitrum = 'arbitrum',
+}
+
 /**
  * Blockchain network options.
  */
