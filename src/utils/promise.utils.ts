@@ -8,6 +8,16 @@ export class BulkPromises<T> {
 
   /**
    * @param initialFunctions Optional initial array of promise-returning functions.
+   *
+   * @example
+   * // create a BulkPromises instance with initial jobs
+   *
+   * const bulk = new BulkPromises<string>([
+   *  () => Promise.resolve('first'),
+   *  () => Promise.resolve('second')
+   * ]);
+   *
+   * const results = await bulk.run(); // ['first', 'second']
    */
   constructor(initialFunctions?: Array<() => Promise<T>>) {
     if (initialFunctions) this.functions = [ ...initialFunctions ]
@@ -36,7 +46,15 @@ export class BulkPromises<T> {
    * @returns The BulkPromises instance for chaining.
    *
    * @example
-   * bulk.addIf(hasAvatar, () => fetchAvatar(userId));
+   * const bulk = new BulkPromises<string>();
+   * const hasData = true, hasAvatar = true
+   *
+   * bulk
+   *   .addIf(hasData,   () => Promise.resolve('data loaded'))
+   *   .addIf(false,     () => Promise.resolve('this will not run'))
+   *   .addIf(hasAvatar, () => fetchAvatar(userId))
+   *
+   * const results = await bulk.run(); // ['data loaded']
    */
   addIf(condition: boolean, fn: () => Promise<T>): this {
     if (condition) this.functions.push(fn)
