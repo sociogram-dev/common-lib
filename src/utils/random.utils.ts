@@ -10,15 +10,15 @@ const randomIndex = (characters: string): number =>
   Math.floor(Math.random() * characters.length)
 
 /**
- * Generates a random numeric value of a given length.
+ * Generates a random integer value of a given length.
  *
  * @param {number} length - Number of digits in the result.
  * @returns {number} A randomly generated number with the given length.
  *
  * @example
- * randomNumber(6); // → 928371
+ * randomInt(6); // → 928371
  */
-export const randomNumber = (length: number): number => {
+export const randomInt = (length: number): number => {
   let result = ''
   const characters = '0123456789'
 
@@ -27,6 +27,23 @@ export const randomNumber = (length: number): number => {
   }
 
   return Number(result)
+}
+
+/**
+ * Generates a random decimal number within a specified range and with the desired number of decimal places.
+ *
+ * @param {number} [min=0] - The minimum value (inclusive).
+ * @param {number} [max=1000] - The maximum value (inclusive or almost inclusive due to rounding).
+ * @param {number} [decimals=2] - The number of decimal places to include.
+ * @returns {number} A random number with the specified precision.
+ *
+ * @example
+ * randomDecimal(); // e.g., 543.27
+ * randomDecimal(1, 5); // e.g., 3.42
+ * randomDecimal(10, 20, 3); // e.g., 15.384
+ */
+export const randomDecimal = (min: number = 0, max: number = 1000, decimals: number = 2) => {
+  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals))
 }
 
 /**

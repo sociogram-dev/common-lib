@@ -1,6 +1,6 @@
+import { isValidAddress } from 'ethereumjs-util'
 import { ethers } from 'ethers'
 import { verify } from 'web3-token'
-import { isValidAddress } from 'ethereumjs-util'
 import { ChainType, ChainTypes, ChainId } from './shared'
 
 export const zeroAddress = '0x0000000000000000000000000000000000000000'
@@ -69,7 +69,7 @@ export const verifyEvmSignature = (address: string, signature: string): void => 
   } catch {
     throw new Error('Address is not verified')
   }
-
+  
   if (!addressFromSig || addressFromSig.toLowerCase() !== address.toLowerCase()) {
     throw new Error('Address is not verified')
   }

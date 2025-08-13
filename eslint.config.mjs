@@ -16,24 +16,77 @@ export default defineConfig([
       'import': eslintImportPlugin,
     },
     rules: {
-      '@stylistic/type-annotation-spacing': [ 'error' ],
-      'array-bracket-spacing': [ 'error', 'always' ],
-      'space-in-parens': [ 'error', 'never' ],
-      '@stylistic/interface-name-prefix': 'off',
+      // '@stylistic/curly-newline': ["error", {
+      //   "ForInStatement": "always",
+      //   "ForOfStatement": { "multiline": true },
+      //   "ForStatement": "never",
+      //   "WhileStatement": { "multiline": true, "minElements": 3, "consistent": true }
+      // }],
       '@stylistic/explicit-function-return-type': 'off',
+      '@stylistic/interface-name-prefix': 'off',
       '@stylistic/no-explicit-any': 'off',
       '@stylistic/no-var-requires': 'off',
       '@stylistic/no-namespace': 'off',
-      'quotes': [ 'error', 'single' ],
-      'space-before-blocks': 'error',
-      'keyword-spacing': [ 'error', { 'after': true } ],
-      'key-spacing': [ 'error', { 'beforeColon': false, 'afterColon': true, 'mode': 'minimum' } ],
-      'object-curly-spacing': [ 'error', 'always' ],
-      'newline-before-return': 'error',
+      '@stylistic/no-duplicate-enum-values': 'off',
+      '@stylistic/indent-binary-ops': [ 'error', 2 ],
+      // '@stylistic/type-annotation-spacing': [ 'error' ],
+      '@stylistic/no-multi-spaces': [ 'warn', {
+        exceptions: {
+          ImportDeclaration: true,
+          VariableDeclarator: true,
+          Property: true,
+        },
+      },
+      ],
+      
+      'spaced-comment': [ 'error', 'always', {
+        'line': {
+          'markers': [ '/' ],
+          'exceptions': [ '-', '+' ],
+        },
+        'block': {
+          'markers': [ '!' ],
+          'exceptions': [ '*' ],
+          'balanced': true,
+        },
+      } ],
+      
+      // align object values
+      '@stylistic/key-spacing': [ 'error', {
+        'beforeColon': false,
+        'afterColon': true,
+        'mode': 'minimum',
+        'align': {
+          on: 'colon',
+          beforeColon: false,
+          afterColon: true,
+        },
+      } ],
+      
+      
+      '@stylistic/array-bracket-spacing': [ 'error', 'always', { arraysInArrays: false } ],
       'block-spacing': 'error',
-      'indent': [
-        'error',
-        2,
+      
+      'comma-spacing': [ 'error', { 'before': false, 'after': true } ],
+      'comma-dangle': [ 'error', 'only-multiline' ],
+      'comma-style': [ 'error', 'last' ],
+      
+      
+      'quotes': [ 'error', 'single' ],
+      'space-in-parens': [ 'error', 'never' ],
+      'space-before-blocks': 'error',
+      '@stylistic/keyword-spacing': [ 'error', { 'before': true, 'after': true } ],
+      '@stylistic/space-before-function-paren': [ 'error', {
+        'anonymous': 'always',
+        'named': 'never',
+        'asyncArrow': 'always',
+        'catch': 'always',
+      } ],
+      
+      '@stylistic/object-curly-spacing': [ 'error', 'always' ],
+      'newline-before-return': 'error',
+      
+      'indent': [ 'error', 2,
         {
           'SwitchCase': 1,
           'MemberExpression': 1,
@@ -44,6 +97,7 @@ export default defineConfig([
           ],
         },
       ],
+      
       'semi': [
         'error',
         'never',
@@ -52,20 +106,14 @@ export default defineConfig([
         'error',
         'unix',
       ],
-      'no-multiple-empty-lines': [
-        'error',
-        {
-          'max': 1,
-        },
-      ],
+      'no-multiple-empty-lines': [ 'error', {
+        'max': 1,
+      } ],
       'arrow-spacing': [ 'error', { 'before': true, 'after': true } ],
       'comma-dangle': [
         'error',
         'always-multiline',
       ],
-      '@stylistic/no-duplicate-enum-values': 'off',
-      'no-multi-spaces': 'error',
-      'comma-spacing': [ 'error', { 'before': false, 'after': true } ],
       'import/order': [
         'error',
         {
@@ -79,10 +127,8 @@ export default defineConfig([
         },
       ],
       'import/newline-after-import': [ 'error', { 'count': 1 } ],
-      'space-infix-ops': [ 'error', { 'int32Hint': false } ],
-      'no-restricted-imports': [ 'error', {
-        'patterns': [ ],
-      } ],
+      '@stylistic/space-infix-ops': [ 'error', { int32Hint: false } ],
+      'no-restricted-imports': [ 'error', { 'patterns': [ '.*' ] } ],
     },
   },
 ]);
