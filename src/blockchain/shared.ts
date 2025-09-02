@@ -13,6 +13,7 @@ export enum ChainId {
   BSC = 56,
   Polygon = 137,
   Solana = 101,
+  Base = 8453,
   Arbitrum = 42161,
   SolanaMainnetBeta = 101,
 
@@ -24,10 +25,11 @@ export enum ChainId {
 
 export enum ChainValue {
   Ethereum = 'eth',
-  Optimism = 'optimism',
+  Optimism = 'op',
   BSC = 'bsc',
   Polygon = 'polygon',
-  Arbitrum = 'arbitrum',
+  Base = 'base',
+  Arbitrum = 'arb',
 }
 
 /**
