@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger'
 import { Prop } from '@nestjs/mongoose'
-import { getEnumValues } from '..'
+import { getEnumValues } from './types.utils'
 
 type CustomOptions = ApiPropertyOptions | string
 

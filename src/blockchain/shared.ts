@@ -33,6 +33,81 @@ export enum ChainValue {
 }
 
 /**
+ * A mapping between symbolic chain values (short string codes) and their
+ * corresponding numeric chain IDs.
+ *
+ * Useful for resolving a `ChainValue` (e.g. 'eth', 'bsc') into the
+ * associated `ChainId` (e.g. 1, 56).
+ *
+ * @constant
+ * @type {Map<ChainValue, ChainId>}
+ *
+ * @example
+ * chainValueToIdMap.get(ChainValue.BSC) // → 56
+ */
+const chainValueToIdMap: Map<ChainValue, ChainId> = new Map<ChainValue, ChainId>([
+  [ ChainValue.Ethereum, ChainId.Ethereum ],
+  [ ChainValue.Optimism, ChainId.Optimism ],
+  [ ChainValue.BSC, ChainId.BSC ],
+  [ ChainValue.Polygon, ChainId.Polygon ],
+  [ ChainValue.Base, ChainId.Base ],
+  [ ChainValue.Arbitrum, ChainId.Arbitrum ],
+])
+
+/**
+ * A reverse mapping between numeric chain IDs and their symbolic chain values.
+ *
+ * Useful for resolving a `ChainId` (e.g. 1, 56) into the
+ * associated `ChainValue` (e.g. 'eth', 'bsc').
+ *
+ * @constant
+ * @type {Map<ChainId, ChainValue>}
+ *
+ * @example
+ * chainIdToValueMap.get(ChainId.Ethereum) // → 'eth'
+ */
+const chainIdToValueMap: Map<ChainId, ChainValue> = new Map<ChainId, ChainValue>([
+  [ ChainId.Ethereum, ChainValue.Ethereum ],
+  [ ChainId.Optimism, ChainValue.Optimism ],
+  [ ChainId.BSC, ChainValue.BSC ],
+  [ ChainId.Polygon, ChainValue.Polygon ],
+  [ ChainId.Base, ChainValue.Base ],
+  [ ChainId.Arbitrum, ChainValue.Arbitrum ],
+])
+
+/**
+ * Returns the numeric chain ID that corresponds to a given chain value.
+ *
+ * @param {ChainValue} value - The symbolic chain value (e.g., 'eth', 'bsc').
+ * @returns {ChainId} The numeric chain ID associated with the provided chain value.
+ * @throws {Error} If the provided chain value does not have a corresponding chain ID.
+ *
+ * @example
+ * getChainIdByValue(ChainValue.BSC) // → 56
+ */
+export const getChainIdByValue = (value: ChainValue): ChainId => {
+  if (chainValueToIdMap.has(value)) return chainValueToIdMap.get(value)!
+
+  throw new Error(`Invalid chain value: ${value}`)
+}
+
+/**
+ * Returns the chain value (short code) that corresponds to a given numeric chain ID.
+ *
+ * @param {ChainId} id - The numeric chain ID (e.g., 1, 56).
+ * @returns {ChainValue} The chain value associated with the provided chain ID.
+ * @throws {Error} If the provided chain ID does not have a corresponding chain value.
+ *
+ * @example
+ * getChainValueById(ChainId.Ethereum) // → 'eth'
+ */
+export const getChainValueById = (id: ChainId): ChainValue => {
+  if (chainIdToValueMap.has(id)) return chainIdToValueMap.get(id)!
+
+  throw new Error(`Invalid chain id: ${id}`)
+}
+
+/**
  * Blockchain network options.
  */
 export type ChainOptions = {

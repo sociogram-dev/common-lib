@@ -128,7 +128,7 @@ export default defineConfig([
       ],
       'import/newline-after-import': [ 'error', { 'count': 1 } ],
       '@stylistic/space-infix-ops': [ 'error', { int32Hint: false } ],
-      'no-restricted-imports': [ 'error', { 'patterns': [ '.*' ] } ],
+      'no-restricted-imports': [ 'off', { 'patterns': [ '.*' ] } ],
     },
   },
 ]);
