@@ -15,16 +15,16 @@ export * from './solana'
  */
 export enum WalletExtension {
   Metamask = 'metamask',
-    WalletConnect = 'walletconnect',
-    Phantom = 'phantom',
-    BaseWallet = 'base',
-    TrustWallet = 'trustwallet',
-    Rabby = 'rabby',
-    OkxWallet = 'okx',
-    BitgetWallet = 'bitget',
-    BinanceWallet = 'binance',
-    Zerion = 'zerion',
-    Rainbow = 'rainbow',
-    Brave = 'brave',
-    TokenPocket = 'tokenpocket'
+  WalletConnect = 'walletconnect',
+  Phantom = 'phantom',
+  BaseWallet = 'base',
+  TrustWallet = 'trustwallet',
+  Rabby = 'rabby',
+  OkxWallet = 'okx',
+  BitgetWallet = 'bitget',
+  BinanceWallet = 'binance',
+  Zerion = 'zerion',
+  Rainbow = 'rainbow',
+  Brave = 'brave',
+  TokenPocket = 'tokenpocket'
 }
