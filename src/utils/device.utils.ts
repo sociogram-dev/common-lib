@@ -27,6 +27,8 @@ export enum Platform {
 
   /** Web browser, unknown platform (used when explicitly targeting browser-only environments) */
   Web = 'web',
+
+  Other = 'other',
 }
 
 /**
@@ -117,7 +119,9 @@ export const getPlatform = (userAgent?: string): Platform => {
  * @example
  * getOS("Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)..."); // ios
  */
-export const getOS = (userAgent: string): OS => {
+export const getOS = (userAgent?: string): OS => {
+  if (!userAgent) return OS.Other
+
   const ua = userAgent.toLowerCase()
 
   if (ua.includes('windows nt')) {

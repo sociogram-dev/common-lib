@@ -9,7 +9,6 @@ export * from './solana'
  */
 export enum WalletExtension {
   Metamask = 'metamask',
-  WalletConnect = 'walletconnect',
   Phantom = 'phantom',
   BaseWallet = 'base',
   TrustWallet = 'trustwallet',
