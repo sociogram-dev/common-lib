@@ -18,9 +18,9 @@ enum CurrencyCategory {
  * Metadata for each currency.
  */
 type CurrencyInfo = {
-  code: CurrencyCode;
+  code    : CurrencyCode;
   decimals: number;
-  name: string;
+  name    : string;
   category: CurrencyCategory;
 };
 
@@ -67,8 +67,8 @@ const currencyMap: Map<CurrencyCode, CurrencyInfo> = new Map([
  *  console.log(amt);
  */
 class CurrencyAmount {
-  private amount: bigint
-  private format?: AmountFormat
+  private amount           : bigint
+  private format?          : AmountFormat
   private readonly currency: CurrencyInfo
 
   /**
@@ -137,7 +137,7 @@ class CurrencyAmount {
     const str = value.toString().padStart(decimals + 1, '0')
     const intPart = str.slice(0, -decimals) || '0'
     const fracPart = str.slice(-decimals)
-    
+
     return parseFloat(`${intPart}.${fracPart}`)
   }
 
@@ -154,7 +154,7 @@ class CurrencyAmount {
   add(value: string | number | bigint): CurrencyAmount {
     const addAmount = this.parseInput(value)
     this.amount += addAmount
-    
+
     return this
   }
 
@@ -172,7 +172,7 @@ class CurrencyAmount {
   subtract(value: string | number | bigint): CurrencyAmount {
     const subAmount = this.parseInput(value)
     this.amount -= subAmount
-    
+
     return this
   }
 
@@ -184,7 +184,7 @@ class CurrencyAmount {
   multiply(factor: number): CurrencyAmount {
     const result = BigInt(Math.round(Number(this.amount) * factor))
     this.amount = result
-    
+
     return this
   }
 
@@ -196,7 +196,7 @@ class CurrencyAmount {
   divide(divisor: number): CurrencyAmount {
     const result = BigInt(Math.round(Number(this.amount) / divisor))
     this.amount = result
-    
+
     return this
   }
 
@@ -207,7 +207,7 @@ class CurrencyAmount {
    */
   lt(value: string | number | bigint): boolean {
     const compare = this.parseInput(value)
-    
+
     return this.amount < compare
   }
 
@@ -218,7 +218,7 @@ class CurrencyAmount {
    */
   lte(value: string | number | bigint): boolean {
     const compare = this.parseInput(value)
-    
+
     return this.amount <= compare
   }
 
@@ -229,7 +229,7 @@ class CurrencyAmount {
    */
   gt(value: string | number | bigint): boolean {
     const compare = this.parseInput(value)
-    
+
     return this.amount > compare
   }
 
@@ -240,7 +240,7 @@ class CurrencyAmount {
    */
   gte(value: string | number | bigint): boolean {
     const compare = this.parseInput(value)
-    
+
     return this.amount >= compare
   }
 
@@ -294,7 +294,7 @@ class CurrencyAmount {
    */
   toFormats(): AmountFormats {
     return {
-      atomic: this.toAtomic(),
+      atomic : this.toAtomic(),
       decimal: this.toDecimal(),
     }
   }
