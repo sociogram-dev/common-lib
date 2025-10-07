@@ -36,7 +36,7 @@ export enum TransferOperation {
   In = 'balance.transfer-in',
 }
 
-export enum TreasureType {
+export enum TreasureOperation {
   Deposit = 'treasure.deposit',
   Withdrawal = 'treasure.withdrawal',
 }
@@ -64,7 +64,7 @@ export enum ReferralOperation {
 }
 
 export type OperationType =
-  | TreasureType
+  | TreasureOperation
   | PlatformOperation
   | MiniAppOperation
   | RewardPoolOperation
