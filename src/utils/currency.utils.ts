@@ -311,19 +311,19 @@ class CurrencyAmount {
  * const amt = currencyAmount('10.00', 'USD');
  * console.log(amt);
  */
-export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
-  return new CurrencyAmount(input, currencyCode)
-}
-
-export const atomicCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
-  if (typeof input === 'number') throw new Error('Atomic amount cannot be a number')
-  if (typeof input === 'string' && String(input).includes('.')) throw new Error('Atomic amount cannot contain decimals')
-
-  return new CurrencyAmount(input, currencyCode, AmountFormat.Atomic)
-}
-
-export const decimalCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
-  if (typeof input !== 'number') throw new Error('Decimal amount must be a number')
-
-  return new CurrencyAmount(input, currencyCode, AmountFormat.Decimal)
-}
+// export const currencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+//   return new CurrencyAmount(input, currencyCode)
+// }
+//
+// export const atomicCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+//   if (typeof input === 'number') throw new Error('Atomic amount cannot be a number')
+//   if (typeof input === 'string' && String(input).includes('.')) throw new Error('Atomic amount cannot contain decimals')
+//
+//   return new CurrencyAmount(input, currencyCode, AmountFormat.Atomic)
+// }
+//
+// export const decimalCurrencyAmount = (input: AmountType, currencyCode: CurrencyCode): CurrencyAmount => {
+//   if (typeof input !== 'number') throw new Error('Decimal amount must be a number')
+//
+//   return new CurrencyAmount(input, currencyCode, AmountFormat.Decimal)
+// }
