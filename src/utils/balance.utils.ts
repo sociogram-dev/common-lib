@@ -73,3 +73,8 @@ export type OperationType =
   | MemepadOperation
   | ReferralOperation
   | TransferOperation
+
+export const OperationMessageMap = new Map<OperationType, string>([
+  [ TreasureOperation.Deposit, 'Deposit' ],
+  [ TreasureOperation.Withdrawal, 'Withdrawal' ],
+])
