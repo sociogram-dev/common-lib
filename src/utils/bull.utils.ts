@@ -18,6 +18,7 @@ export enum BullContext {
   RatingSystem = 'rating-system',
   Trades = 'trades',
   Websocket = 'websocket',
+  BalanceRequese = 'balance-requese'
 }
 
 /**
@@ -118,36 +119,42 @@ enum TwitterJob {
   CheckTweetById = `${BullContext.Twitter}.check-tweet-by-id`,
 }
 
+enum BalanceRequeseJob {
+  Test = `${BullContext.BalanceRequese}.test`,
+}
+
 interface JobNameMap {
-  [BullContext.Analytic]: typeof AnalyticJob,
-  [BullContext.Comment]: typeof CommentJob,
-  [BullContext.Giveaway]: typeof GiveawayJob,
-  [BullContext.Publication]: typeof PublicationJob,
-  [BullContext.Reaction]: typeof ReactionJob,
-  [BullContext.Slack]: typeof SlackJob,
-  [BullContext.RatingSystem]: typeof RatingSystemJob,
-  [BullContext.RewardPool]: typeof RewardPoolJob,
-  [BullContext.Notification]: typeof NotificationJob,
-  [BullContext.User]: typeof UserJob,
-  [BullContext.UserServices]: typeof UserServicesJob,
-  [BullContext.Websocket]: typeof WebsocketJob,
-  [BullContext.Twitter]: typeof TwitterJob,
+  [BullContext.Analytic]      : typeof AnalyticJob,
+  [BullContext.Comment]       : typeof CommentJob,
+  [BullContext.Giveaway]      : typeof GiveawayJob,
+  [BullContext.Publication]   : typeof PublicationJob,
+  [BullContext.Reaction]      : typeof ReactionJob,
+  [BullContext.Slack]         : typeof SlackJob,
+  [BullContext.RatingSystem]  : typeof RatingSystemJob,
+  [BullContext.RewardPool]    : typeof RewardPoolJob,
+  [BullContext.Notification]  : typeof NotificationJob,
+  [BullContext.User]          : typeof UserJob,
+  [BullContext.UserServices]  : typeof UserServicesJob,
+  [BullContext.Websocket]     : typeof WebsocketJob,
+  [BullContext.Twitter]       : typeof TwitterJob,
+  [BullContext.BalanceRequese]: typeof BalanceRequeseJob,
 }
 
 const jobMap: JobNameMap = {
-  [BullContext.Analytic]: AnalyticJob,
-  [BullContext.Comment]: CommentJob,
-  [BullContext.Giveaway]: GiveawayJob,
-  [BullContext.Publication]: PublicationJob,
-  [BullContext.Reaction]: ReactionJob,
-  [BullContext.RewardPool]: RewardPoolJob,
-  [BullContext.Slack]: SlackJob,
-  [BullContext.RatingSystem]: RatingSystemJob,
-  [BullContext.Notification]: NotificationJob,
-  [BullContext.User]: UserJob,
-  [BullContext.UserServices]: UserServicesJob,
-  [BullContext.Websocket]: WebsocketJob,
-  [BullContext.Twitter]: TwitterJob,
+  [BullContext.Analytic]      : AnalyticJob,
+  [BullContext.Comment]       : CommentJob,
+  [BullContext.Giveaway]      : GiveawayJob,
+  [BullContext.Publication]   : PublicationJob,
+  [BullContext.Reaction]      : ReactionJob,
+  [BullContext.RewardPool]    : RewardPoolJob,
+  [BullContext.Slack]         : SlackJob,
+  [BullContext.RatingSystem]  : RatingSystemJob,
+  [BullContext.Notification]  : NotificationJob,
+  [BullContext.User]          : UserJob,
+  [BullContext.UserServices]  : UserServicesJob,
+  [BullContext.Websocket]     : WebsocketJob,
+  [BullContext.Twitter]       : TwitterJob,
+  [BullContext.BalanceRequese]: BalanceRequeseJob,
 }
 
 /**
