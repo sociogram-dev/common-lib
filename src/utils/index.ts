@@ -10,8 +10,3 @@ export * from './promise.utils'
 export * from './random.utils'
 export * from './swagger.utils'
 export * from './types.utils'
-
-export enum TransactionType {
-  Deposit = 'deposit',
-  Withdrawal = 'withdrawal',
-}
