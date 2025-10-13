@@ -14,7 +14,6 @@ export enum TransactionDirection {
 
 export enum BalanceType {
   Main = 'main', // main internal balance
-  Trading = 'trading',
   MiniApp = 'mini-app',
   Bot = 'bot',
   Advertiser = 'advertiser',
@@ -147,7 +146,6 @@ export const OperationMessageMap: { [key in TransactionDirection]: Map<Operation
     [ MiniAppOperation.Buy, 'Payment to Mini-App' ],
   ]),
 }
-
 
 export enum TransactionSource {
   Internal = 'internal',
