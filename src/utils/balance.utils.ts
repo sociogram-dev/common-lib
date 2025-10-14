@@ -87,6 +87,14 @@ export type OperationType =
   | ReferralOperation
   | TransferOperation
 
+export enum SendOperation {
+  GiveTips = 'send.give-tips',
+}
+
+export const SendProfile = new Map<SendOperation, { from: OperationType, to: OperationType }>([
+  [ SendOperation.GiveTips, { from: ReactionOperation.GiveTips, to: ReactionOperation.GotTips } ],
+])
+
 export const OperationMessageMap: { [key in TransactionDirection]: Map<OperationType, string> } = {
   [TransactionDirection.Credit]: new Map<OperationType, string>([
     // Treasures
