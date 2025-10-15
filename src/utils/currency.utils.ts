@@ -7,14 +7,6 @@ export enum CurrencyCode {
 }
 
 /**
- * Category of a currency, used to distinguish fiat vs. cryptocurrency.
- */
-enum CurrencyCategory {
-  Fiat = 'fiat',
-  Crypto = 'crypto',
-}
-
-/**
  * Represents an amount in both atomic (string) and decimal (number) formats.
  */
 export type AmountFormats = {

@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger'
 import { Prop } from '@nestjs/mongoose'
-import dayjs from 'dayjs'
 import { CurrencyCode } from './currency.utils'
 import { randomDecimal, randomInt } from './random.utils'
 import { getEnumValues, EnumType } from './types.utils'
@@ -111,8 +110,8 @@ export class ApiProp {
   /** Decorator for a token symbol string. */
   static TokenSymbol(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 'BTC',
       description: 'Token symbol',
+      example    : 'BTC',
       type       : String,
     }, customOptions)
   }
@@ -120,8 +119,8 @@ export class ApiProp {
   /** Decorator for a timestamp (number in milliseconds). */
   static Timestamp(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 1743497459387,
       description: 'Timestamp in milliseconds',
+      example    : 1743497459387,
       type       : Number,
     }, customOptions)
   }
@@ -129,8 +128,8 @@ export class ApiProp {
   /** Decorator for a boolean flag. */
   static Bool(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : false,
       description: 'Boolean flag',
+      example    : false,
       type       : Boolean,
     }, customOptions)
   }
@@ -138,8 +137,8 @@ export class ApiProp {
   /** Decorator for an image URL string. */
   static ImgUrl(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 'https://i.pinimg.com/736x/20/b2/0b/20b20b5c3e522416ca19ebda4d00b0ab.jpg',
       description: 'Image URL',
+      example    : 'https://i.pinimg.com/736x/20/b2/0b/20b20b5c3e522416ca19ebda4d00b0ab.jpg',
       type       : String,
     }, customOptions)
   }
@@ -147,8 +146,8 @@ export class ApiProp {
   /** Decorator for a website URL string. */
   static Url(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 'https://www.pinterest.com',
       description: 'Website URL',
+      example    : 'https://www.pinterest.com',
       type       : String,
     }, customOptions)
   }
@@ -156,8 +155,8 @@ export class ApiProp {
   /** Decorator for a decimal number. */
   static Decimal(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : randomDecimal(1, 500, 4),
       description: 'Decimal number',
+      example    : randomDecimal(1, 500, 4),
       type       : Number,
     }, customOptions)
   }
@@ -165,8 +164,8 @@ export class ApiProp {
   /** Decorator for a positive integer. */
   static Int(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : randomInt(3),
       description: 'Positive integer number',
+      example    : randomInt(3),
       type       : Number,
       default    : 0,
     }, customOptions)
@@ -175,7 +174,7 @@ export class ApiProp {
   /** Decorator for a simple string. */
   static String(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 'Sattelite',
+      example    : 'Shit happens',
       description: 'A string text',
       type       : String,
     }, customOptions)
@@ -184,8 +183,8 @@ export class ApiProp {
   /** Decorator for a ISO 8601 date string. */
   static Date(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : dayjs().toDate(),
       description: 'String date field',
+      example    : new Date(),
       type       : String,
     }, customOptions)
   }
@@ -219,8 +218,8 @@ export class ApiProp {
   /** Decorator for an array of integers. */
   static IntArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : [ 12, 56, 44 ],
       description: 'Array of integers',
+      example    : [ 12, 56, 44 ],
       type       : [ Number ],
     }, customOptions)
   }
@@ -237,8 +236,8 @@ export class ApiProp {
   /** Decorator for an array of decimal numbers. */
   static DecimalArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : [ 12.02, 56.32, 44.54 ],
       description: 'Array of decimals',
+      example    : [ 12.02, 56.32, 44.54 ],
       type       : [ Number ],
     }, customOptions)
   }
@@ -251,8 +250,8 @@ export class ApiProp {
    */
   static Enum(enumType: EnumType, customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : getEnumValues(enumType).at(0),
       description: 'Enum values',
+      example    : getEnumValues(enumType).at(0),
       enum       : getEnumValues(enumType),
     }, customOptions)
   }
@@ -260,8 +259,8 @@ export class ApiProp {
   static Currency(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
       description: 'Currency code',
-      type       : String,
       example    : CurrencyCode.USD,
+      type       : String,
       required   : true,
       enum       : getEnumValues(CurrencyCode),
     }, customOptions)
@@ -269,8 +268,8 @@ export class ApiProp {
 
   static PublicId(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
     return ApiProp._build({
-      example    : 13,
       description: 'Entity public numeric identifier',
+      example    : 13,
       type       : Number,
       default    : 1,
     }, customOptions)

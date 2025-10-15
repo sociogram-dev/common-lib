@@ -1,3 +1,5 @@
+import { Transaction } from 'ethers'
+
 /**
  * Bull queue contexts for different application domains.
  * Each context represents a separate queue for processing specific types of jobs.
@@ -18,7 +20,7 @@ export enum BullContext {
   RatingSystem = 'rating-system',
   Trades = 'trades',
   Websocket = 'websocket',
-  BalanceRequese = 'balance-requese'
+  BalanceRequest = 'balance-request',
 }
 
 /**
@@ -120,7 +122,7 @@ enum TwitterJob {
 }
 
 enum BalanceRequeseJob {
-  Test = `${BullContext.BalanceRequese}.test`,
+  Test = `${BullContext.BalanceRequest}.test`,
 }
 
 interface JobNameMap {
@@ -137,7 +139,7 @@ interface JobNameMap {
   [BullContext.UserServices]  : typeof UserServicesJob,
   [BullContext.Websocket]     : typeof WebsocketJob,
   [BullContext.Twitter]       : typeof TwitterJob,
-  [BullContext.BalanceRequese]: typeof BalanceRequeseJob,
+  [BullContext.BalanceRequest]: typeof BalanceRequeseJob,
 }
 
 const jobMap: JobNameMap = {
@@ -154,7 +156,7 @@ const jobMap: JobNameMap = {
   [BullContext.UserServices]  : UserServicesJob,
   [BullContext.Websocket]     : WebsocketJob,
   [BullContext.Twitter]       : TwitterJob,
-  [BullContext.BalanceRequese]: BalanceRequeseJob,
+  [BullContext.BalanceRequest]: BalanceRequeseJob,
 }
 
 /**
