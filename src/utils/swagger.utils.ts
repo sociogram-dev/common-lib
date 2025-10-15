@@ -1,6 +1,9 @@
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger'
 import { Prop } from '@nestjs/mongoose'
-import { getEnumValues } from './types.utils'
+import dayjs from 'dayjs'
+import { CurrencyCode } from './currency.utils'
+import { randomDecimal, randomInt } from './random.utils'
+import { getEnumValues, EnumType } from './types.utils'
 
 type CustomOptions = ApiPropertyOptions | string
 
@@ -12,20 +15,24 @@ export class ApiProp {
   /**
    * Internal builder method for constructing an ApiProperty decorator with default and custom options.
    *
-   * @category Swagger
    * @param finalOptions - The base options (example, description, type).
    * @param customOptions - Optional string description or full ApiPropertyOptions to override defaults.
    * @returns The configured ApiProperty decorator.
    */
   static _build(finalOptions: ApiPropertyOptions, customOptions?: ApiPropertyOptions | string) {
     finalOptions.required = true
+
     if (customOptions) {
       if (typeof customOptions === 'string') {
         finalOptions.description = customOptions
-      } else finalOptions = Object.assign(finalOptions, customOptions) as ApiPropertyOptions
+      } else {
+        finalOptions = { ...finalOptions, ...customOptions } as ApiPropertyOptions
+      }
     }
 
-    if (finalOptions.isArray) finalOptions.example = [ finalOptions.example, finalOptions.example ]
+    if (finalOptions.isArray) {
+      finalOptions.example = Array.isArray(finalOptions.example) ? finalOptions.example : [ finalOptions.example ]
+    }
 
     return ApiProperty(finalOptions)
   }
@@ -41,25 +48,69 @@ export class ApiProp {
 
   /** Decorator for a Solana wallet address string. */
   static SolanaAddress(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs',
+    return ApiProp._build({
       description: 'Solana wallet address',
+      example    : '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs',
       type       : String,
     }, customOptions)
   }
 
   /** Decorator for a Solana wallet address string. */
   static EvmAddress(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs',
-      description: 'Solana wallet address',
+    return ApiProp._build({
+      description: 'Ethereum wallet address',
+      example    : '0x059a8bfd798f29ce665816d12d56400fa47de028',
       type       : String,
+    }, customOptions)
+  }
+
+  static Ens(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      description: 'Ethereum Name Service',
+      example    : 'arbitrum.arb',
+      type       : String,
+      default    : null,
+      nullable   : true,
+      required   : false,
+    }, customOptions)
+  }
+
+  static SpaceId(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      description: 'Universal name service web3 domain',
+      example    : 'alice.bnb',
+      type       : String,
+      default    : null,
+      nullable   : true,
+      required   : false,
+    }, customOptions)
+  }
+
+  static Unstoppable(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      description: 'Onchain web3 domain',
+      example    : 'sir.eth',
+      type       : String,
+      default    : null,
+      nullable   : true,
+      required   : false,
+    }, customOptions)
+  }
+
+  static Sns(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      description: 'Solana Name Service',
+      example    : 'maria.sol',
+      type       : String,
+      default    : null,
+      nullable   : true,
+      required   : false,
     }, customOptions)
   }
 
   /** Decorator for a token symbol string. */
   static TokenSymbol(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : 'BTC',
       description: 'Token symbol',
       type       : String,
@@ -68,7 +119,7 @@ export class ApiProp {
 
   /** Decorator for a timestamp (number in milliseconds). */
   static Timestamp(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : 1743497459387,
       description: 'Timestamp in milliseconds',
       type       : Number,
@@ -77,7 +128,7 @@ export class ApiProp {
 
   /** Decorator for a boolean flag. */
   static Bool(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : false,
       description: 'Boolean flag',
       type       : Boolean,
@@ -86,26 +137,26 @@ export class ApiProp {
 
   /** Decorator for an image URL string. */
   static ImgUrl(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : 'https://i.pinimg.com/736x/20/b2/0b/20b20b5c3e522416ca19ebda4d00b0ab.jpg',
-      description: 'Image url',
+      description: 'Image URL',
       type       : String,
     }, customOptions)
   }
 
   /** Decorator for a website URL string. */
   static Url(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : 'https://www.pinterest.com/pin/43417583904430184/',
-      description: 'Website url',
+    return ApiProp._build({
+      example    : 'https://www.pinterest.com',
+      description: 'Website URL',
       type       : String,
     }, customOptions)
   }
 
   /** Decorator for a decimal number. */
   static Decimal(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : 1657.32,
+    return ApiProp._build({
+      example    : randomDecimal(1, 500, 4),
       description: 'Decimal number',
       type       : Number,
     }, customOptions)
@@ -113,8 +164,8 @@ export class ApiProp {
 
   /** Decorator for a positive integer. */
   static Int(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : 224,
+    return ApiProp._build({
+      example    : randomInt(3),
       description: 'Positive integer number',
       type       : Number,
       default    : 0,
@@ -123,25 +174,42 @@ export class ApiProp {
 
   /** Decorator for a simple string. */
   static String(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : 'Last hope',
+    return ApiProp._build({
+      example    : 'Sattelite',
       description: 'A string text',
+      type       : String,
+    }, customOptions)
+  }
+
+  /** Decorator for a ISO 8601 date string. */
+  static Date(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      example    : dayjs().toDate(),
+      description: 'String date field',
       type       : String,
     }, customOptions)
   }
 
   /** Decorator for a MongoDB ObjectId. */
   static ObjectId(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : '65c3b229c1646139d65db01c',
-      description: 'A valid mongodb ObjectId',
+      description: 'A valid MongoDB ObjectId',
       type       : String,
+    }, customOptions)
+  }
+
+  static ObjectIdArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      example    : [ '65c3b229c1646139d65db01c', '85c2b229c1616139d65db00a' ],
+      description: 'Array of ObjectId',
+      type       : [ String ],
     }, customOptions)
   }
 
   /** Decorator for an array of strings. */
   static StringArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : [ 'father', 'loves', 'mother' ],
       description: 'Array of strings',
       type       : [ String ],
@@ -150,7 +218,7 @@ export class ApiProp {
 
   /** Decorator for an array of integers. */
   static IntArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : [ 12, 56, 44 ],
       description: 'Array of integers',
       type       : [ Number ],
@@ -158,17 +226,17 @@ export class ApiProp {
   }
 
   /** Decorator for a generic object. */
-  static Object(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : { a: 12, b: 'cat' },
+  static Object(objectType: any, customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
       description: 'Record of any data',
-      type       : Object,
+      type       : () => objectType,
+      required   : false,
     }, customOptions)
   }
 
   /** Decorator for an array of decimal numbers. */
   static DecimalArray(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
+    return ApiProp._build({
       example    : [ 12.02, 56.32, 44.54 ],
       description: 'Array of decimals',
       type       : [ Number ],
@@ -181,16 +249,36 @@ export class ApiProp {
    * @param enumType - The enum object to document.
    * @param customOptions - Optional description or additional options.
    */
-  static Enum(enumType: object, customOptions?: ApiPropertyOptions | string): PropertyDecorator {
-    return this._build({
-      example    : Object.values(enumType)[0],
-      description: 'Enum value',
-      enum       : enumType,
+  static Enum(enumType: EnumType, customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      example    : getEnumValues(enumType).at(0),
+      description: 'Enum values',
+      enum       : getEnumValues(enumType),
+    }, customOptions)
+  }
+
+  static Currency(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      description: 'Currency code',
+      type       : String,
+      example    : CurrencyCode.USD,
+      required   : true,
+      enum       : getEnumValues(CurrencyCode),
+    }, customOptions)
+  }
+
+  static PublicId(customOptions?: ApiPropertyOptions | string): PropertyDecorator {
+    return ApiProp._build({
+      example    : 13,
+      description: 'Entity public numeric identifier',
+      type       : Number,
+      default    : 1,
     }, customOptions)
   }
 }
 
 /**
+ * TODO: need to delete !!!
  * Decorate Field with Mongoose Prop and Swagger ApiProperty
  */
 export class ComposeProp extends ApiProp {

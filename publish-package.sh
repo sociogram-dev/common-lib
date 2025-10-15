@@ -22,4 +22,4 @@ npm publish --access public
 echo "✅  Package published successfully"
 echo "✅  Version updated: $current_version → $new_version"
 
-echo "🎉 Done!"
+echo "🎉 Common-lib!"

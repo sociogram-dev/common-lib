@@ -154,8 +154,3 @@ export const OperationMessageMap: { [key in TransactionDirection]: Map<Operation
     [ MiniAppOperation.Buy, 'Payment to Mini-App' ],
   ]),
 }
-
-export enum TransactionSource {
-  Internal = 'internal',
-  OnChain = 'onchain',
-}
