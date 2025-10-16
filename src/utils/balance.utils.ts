@@ -15,10 +15,8 @@ export enum TransactionDirection {
 export enum BalanceType {
   Main = 'main', // main internal balance
   MiniApp = 'mini-app',
-  Bot = 'bot',
   Advertiser = 'advertiser',
   Publisher = 'publisher',
-  Campaign = 'campaign'
 }
 
 export enum BalanceStatus {
