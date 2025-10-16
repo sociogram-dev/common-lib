@@ -7,7 +7,7 @@ import { Transaction } from 'ethers'
 export enum BullContext {
   Analytic = 'analytic',
   Giveaway = 'giveaway',
-  Twitter = 'tweeter',
+  Twitter = 'twitter',
   Notification = 'notification',
   Publication = 'publication',
   RewardPool = 'reward-pool',
