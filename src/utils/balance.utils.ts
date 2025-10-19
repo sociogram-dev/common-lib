@@ -12,16 +12,36 @@ export enum TransactionDirection {
   Debit = 'debit',
 }
 
+/**
+ * Primary user balance types.
+ * Each user has one or more balances that represent their overall funds for specific roles in the platform.
+ */
 export enum BalanceType {
-  Main = 'main', // main internal balance
+  /** General-purpose internal balance used for deposits, withdrawals, transfers, other internal platform operations */
+  Main = 'main',
+
+  /** Balance for advertisers — used to fund ad campaigns. */
   Advertiser = 'advertiser',
+
+  /** Balance for publishers — used to fund ad units. */
   Publisher = 'publisher',
+
+  /** Balance for developers — used to fund mini-apps. */
   Developer = 'developer',
 }
 
+/**
+ * Context-specific (sub) balances linked to primary user balances.
+ * These represent funds that are isolated per context (e.g. campaign, ad unit, mini-app).
+ */
 export enum ContextBalanceType {
+  /** Balance for an Ad Unit — used to accumulate ad revenue from impressions, clicks, or engagement. */
   AdUnit = 'adunit',
+
+  /** Balance for a Campaign — used to allocate advertiser funds and track ad spending. */
   Campaign = 'campaign',
+
+  /** Balance for a Mini App — used to store or distribute funds related to in-app transactions or rewards. */
   MiniApp = 'mini-app',
 }
 
