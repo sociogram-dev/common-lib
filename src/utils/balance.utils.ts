@@ -14,14 +14,15 @@ export enum TransactionDirection {
 
 export enum BalanceType {
   Main = 'main', // main internal balance
-  MiniApp = 'mini-app',
   Advertiser = 'advertiser',
   Publisher = 'publisher',
+  Developer = 'developer',
 }
 
-export enum SubBalanceType {
+export enum ContextBalanceType {
+  AdUnit = 'adunit',
   Campaign = 'campaign',
-  AdUnit = 'adunit'
+  MiniApp = 'mini-app',
 }
 
 export enum BalanceStatus {
@@ -93,8 +94,7 @@ export enum ReferralOperation {
   Reward = 'referral.reward',
 }
 
-export type OperationType =
-  | TreasureOperation
+export type OperationType = TreasureOperation
   | PlatformOperation
   | MiniAppOperation
   | CampaignOperation
@@ -110,6 +110,6 @@ export enum SendOperation {
   GiveTips = 'send.give-tips',
 }
 
-export const SendProfile = new Map<SendOperation, { from: OperationType, to: OperationType }>([
+export const SendOperationProfile = new Map<SendOperation, { from: OperationType, to: OperationType }>([
   [ SendOperation.GiveTips, { from: ReactionOperation.GiveTips, to: ReactionOperation.GotTips } ],
 ])
