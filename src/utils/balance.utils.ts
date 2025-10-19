@@ -19,6 +19,11 @@ export enum BalanceType {
   Publisher = 'publisher',
 }
 
+export enum SubBalanceType {
+  Campaign = 'campaign',
+  AdUnit = 'adunit'
+}
+
 export enum BalanceStatus {
   Pending = 'pending',
   Failed = 'failed',
@@ -32,9 +37,23 @@ export enum GiveawayOperation {
 }
 
 export enum MiniAppOperation {
+  Deposit = 'mini-app.deposit',
+  Withdraw = 'mini-app.withdraw',
   Sell = 'mini-app.sell',
   Buy = 'mini-app.buy',
   Purchase = 'mini-app.purchase',
+}
+
+export enum CampaignOperation {
+  Deposit = 'campaign.deposit',
+  Withdraw = 'campaign.withdraw',
+  Spend = 'campaign.spend'
+}
+
+export enum AdUnitOperation {
+  Deposit = 'adunit.deposit',
+  Withdraw = 'adunit.withdraw',
+  Earn = 'adunit.earn',
 }
 
 export enum PlatformOperation {
@@ -58,12 +77,12 @@ export enum RewardPoolOperation {
 }
 
 export enum ReactionOperation {
-  Leave = 'reaction.leave',
   GiveTips = 'reaction.give-tips',
   GotTips = 'reaction.got-tips',
   DepositRewardPool = 'reaction.deposit-reward-pool',
 }
 
+/** @deprecated */
 export enum MemepadOperation {
   TokenListed = 'memepad.token-listed',
   CatchMeme = 'memepad.catch-meme',
@@ -78,6 +97,8 @@ export type OperationType =
   | TreasureOperation
   | PlatformOperation
   | MiniAppOperation
+  | CampaignOperation
+  | AdUnitOperation
   | RewardPoolOperation
   | ReactionOperation
   | GiveawayOperation
@@ -92,63 +113,3 @@ export enum SendOperation {
 export const SendProfile = new Map<SendOperation, { from: OperationType, to: OperationType }>([
   [ SendOperation.GiveTips, { from: ReactionOperation.GiveTips, to: ReactionOperation.GotTips } ],
 ])
-
-export const OperationMessageMap: { [key in TransactionDirection]: Map<OperationType, string> } = {
-  [TransactionDirection.Credit]: new Map<OperationType, string>([
-    // Treasures
-    [ TreasureOperation.Deposit, 'Deposit' ],
-
-    // Platform
-    [ PlatformOperation.Reward, 'Funds received from Sociogram' ],
-    [ PlatformOperation.Refund, 'Your reward for Trading/Referral Competition' ],
-
-    // Reward pool
-    [ RewardPoolOperation.Earn, 'You received a reward from post' ],
-
-    // Giveaway
-    [ GiveawayOperation.Refund, 'Funds from Giveaway refunded to the creator' ],
-    [ GiveawayOperation.Winner, 'Funds received from Giveaway' ],
-
-    // Reaction
-    [ ReactionOperation.GotTips, 'You received a reward from tips' ],
-    [ ReactionOperation.DepositRewardPool, 'Deposit to reward pool from tips' ],
-
-    // Transfer
-    [ TransferOperation.In, 'Transfer funds to main balance' ],
-
-    // Mini-app
-    [ MiniAppOperation.Sell, 'You receive funds from Mini-App' ],
-    [ MiniAppOperation.Buy, 'Funds received from user' ],
-    [ MiniAppOperation.Purchase, 'You receive funds from Mini-App' ],
-
-    // Memepad
-    [ MemepadOperation.TokenListed, 'Funds received from Sociogram for successfully listing the token' ],
-    [ MemepadOperation.CatchMeme, 'Funds received from Sociogram for caught Doge Pumper' ],
-
-    // Referral
-    [ ReferralOperation.Reward, 'Congrats, you won $#amount in Referral Competition!' ],
-  ]),
-
-  [TransactionDirection.Debit]: new Map<OperationType, string>([
-    // Treasures
-    [ TreasureOperation.Withdrawal, 'Withdraw' ],
-
-    // Reward pool
-    [ RewardPoolOperation.Deposit, 'Deposit to reward pool' ],
-    [ MemepadOperation.DepositRewardPool, 'Deposit to reward pool from trade' ],
-
-    // Giveaway
-    [ GiveawayOperation.Create, 'Funds deducted for creation of Giveaway' ],
-
-    // Reaction
-    [ ReactionOperation.GiveTips, 'You give tips' ],
-
-    // Transfer
-    [ TransferOperation.Out, 'Transfer funds to trading balance' ],
-
-    // Mini-app
-    [ MiniAppOperation.Purchase, 'Purchase in Mini-App' ],
-    [ MiniAppOperation.Sell, 'Funds transferred to user' ],
-    [ MiniAppOperation.Buy, 'Payment to Mini-App' ],
-  ]),
-}

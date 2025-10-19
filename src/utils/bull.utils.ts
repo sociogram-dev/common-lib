@@ -94,7 +94,7 @@ enum RewardPoolJob {
 }
 
 enum NotificationJob {
-  Send = `${BullContext.Slack}.send`,
+  Send = `${BullContext.Notification}.send`,
 }
 
 enum WebsocketJob {
