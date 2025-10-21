@@ -13,10 +13,10 @@ export enum TransactionDirection {
 }
 
 /**
- * Primary user balance types.
- * Each user has one or more balances that represent their overall funds for specific roles in the platform.
+ * Primary user account types.
+ * Each user has one or more account that represent their overall funds for specific roles in the platform.
  */
-export enum BalanceType {
+export enum AccountType {
   /** General-purpose internal balance used for deposits, withdrawals, transfers, other internal platform operations */
   Main = 'main',
 
@@ -34,9 +34,9 @@ export enum BalanceType {
  * Context-specific (sub) balances linked to primary user balances.
  * These represent funds that are isolated per context (e.g. campaign, ad unit, mini-app).
  */
-export enum ContextBalanceType {
+export enum ContextAccountType {
   /** Balance for an Ad Unit — used to accumulate ad revenue from impressions, clicks, or engagement. */
-  AdUnit = 'adunit',
+  AdUnit = 'ad-unit',
 
   /** Balance for a Campaign — used to allocate advertiser funds and track ad spending. */
   Campaign = 'campaign',
@@ -60,6 +60,7 @@ export enum GiveawayOperation {
 export enum MiniAppOperation {
   Deposit = 'mini-app.deposit',
   Withdraw = 'mini-app.withdraw',
+  Allocate = 'mini-app.allocate',
   Sell = 'mini-app.sell',
   Buy = 'mini-app.buy',
   Purchase = 'mini-app.purchase',
@@ -68,13 +69,15 @@ export enum MiniAppOperation {
 export enum CampaignOperation {
   Deposit = 'campaign.deposit',
   Withdraw = 'campaign.withdraw',
+  Allocate = 'campaign.allocate',
   Spend = 'campaign.spend'
 }
 
 export enum AdUnitOperation {
-  Deposit = 'adunit.deposit',
-  Withdraw = 'adunit.withdraw',
-  Earn = 'adunit.earn',
+  Deposit = 'ad-unit.deposit',
+  Withdraw = 'ad-unit.withdraw',
+  Allocate = 'ad-unit.allocate',
+  Earn = 'ad-unit.earn',
 }
 
 export enum PlatformOperation {
