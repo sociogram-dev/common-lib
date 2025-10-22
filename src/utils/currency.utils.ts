@@ -48,6 +48,16 @@ const getDecimalPlacements = (options: AnountFormatOptions): Decimal => {
   return base.pow(exponent)
 }
 
+Decimal.set({
+  precision: 50, // Number of significant digits
+  rounding : Decimal.ROUND_FLOOR, // Rounding mode
+  toExpNeg : -18, // Exponential notation for small numbers
+  toExpPos : 64, // Exponential notation for large numbers
+  maxE     : 9e15, // Max exponent
+  minE     : -9e15, // Min exponent
+  modulo   : Decimal.ROUND_DOWN, // Modulo mode
+})
+
 /**
  * Converts a Decimal instance to database-compatible formats.
  *
