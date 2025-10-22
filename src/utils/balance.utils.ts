@@ -70,8 +70,7 @@ export enum CampaignOperation {
   Deposit = 'campaign.deposit',
   Withdraw = 'campaign.withdraw',
   Allocate = 'campaign.allocate',
-  Spend = 'campaign.spend',
-  Impression = 'campaign.impression'
+  Impression = 'campaign.impression' // viewed campaign on publisher site
 }
 
 export enum AdUnitOperation {
@@ -84,6 +83,7 @@ export enum AdUnitOperation {
 export enum PlatformOperation {
   Reward = 'platform.reward',
   Refund = 'platform.refund',
+  AdsFee = 'platform.ads-fee',
 }
 
 export enum TransferOperation {
