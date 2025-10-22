@@ -70,7 +70,8 @@ export enum CampaignOperation {
   Deposit = 'campaign.deposit',
   Withdraw = 'campaign.withdraw',
   Allocate = 'campaign.allocate',
-  Spend = 'campaign.spend'
+  Spend = 'campaign.spend',
+  Impression = 'campaign.impression'
 }
 
 export enum AdUnitOperation {
