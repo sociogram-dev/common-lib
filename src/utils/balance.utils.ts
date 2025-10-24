@@ -45,6 +45,12 @@ export enum ContextAccountType {
   MiniApp = 'mini-app',
 }
 
+export enum TotalOperation {
+  Accounts = 'accounts',
+  Earned = 'earned',
+  Spent = 'spent',
+}
+
 export enum BalanceStatus {
   Pending = 'pending',
   Failed = 'failed',
