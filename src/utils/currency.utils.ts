@@ -76,7 +76,7 @@ Decimal.prototype.toDatabaseFormats = function (options?: AnountFormatOptions) {
 
     return {
       atomic : this.toString(),
-      decimal: this.toNumber() / 10 ** decimalsMap.get(options.currency)!,
+      decimal: this.div(toDecimal(10).pow(decimalsMap.get(options.currency)!)).toNumber(),
     } as AmountFormats
   }
 }
