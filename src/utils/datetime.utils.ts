@@ -4,15 +4,10 @@ import dayjs from 'dayjs'
  * Represents common time intervals.
  */
 export enum Period {
-  /** One hour */
   Hour = 'hour',
-  /** One day */
   Day = 'day',
-  /** One week */
   Week = 'week',
-  /** One month */
   Month = 'month',
-  /** One year */
   Year = 'year',
 }
 

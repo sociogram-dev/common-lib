@@ -45,10 +45,13 @@ export enum ContextAccountType {
   MiniApp = 'mini-app',
 }
 
-export enum TotalOperation {
-  Accounts = 'accounts',
-  Earned = 'earned',
-  Spent = 'spent',
+/**
+ * Sum of all amounts in an user accounts depending on the balance context.
+ */
+export enum TotalBalanceType {
+  Accounts = 'accounts', // sum of all available balances
+  Earned = 'earned', // sum of all user earnings
+  Spent = 'spent', // sum of all user spent
 }
 
 export enum BalanceStatus {
@@ -66,7 +69,6 @@ export enum GiveawayOperation {
 export enum MiniAppOperation {
   Deposit = 'mini-app.deposit',
   Withdraw = 'mini-app.withdraw',
-  Allocate = 'mini-app.allocate',
   Sell = 'mini-app.sell',
   Buy = 'mini-app.buy',
   Purchase = 'mini-app.purchase',
@@ -75,14 +77,13 @@ export enum MiniAppOperation {
 export enum CampaignOperation {
   Deposit = 'campaign.deposit',
   Withdraw = 'campaign.withdraw',
-  Allocate = 'campaign.allocate',
+  Refund = 'campaign.refund',
   Impression = 'campaign.impression' // viewed campaign on publisher site
 }
 
 export enum AdUnitOperation {
   Deposit = 'ad-unit.deposit',
   Withdraw = 'ad-unit.withdraw',
-  Allocate = 'ad-unit.allocate',
   Earn = 'ad-unit.earn',
 }
 
