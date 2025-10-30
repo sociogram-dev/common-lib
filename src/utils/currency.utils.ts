@@ -29,6 +29,11 @@ const decimalsMap = new Map<CurrencyCode, number>([
   [ CurrencyCode.USD, 0 ],
 ])
 
+const placesMap = new Map<CurrencyCode, number>([
+  [ CurrencyCode.SOL, 9 ],
+  [ CurrencyCode.USD, 6 ],
+])
+
 interface AnountFormatOptions {
   currency: CurrencyCode
 }
@@ -38,6 +43,7 @@ declare module 'decimal.js' {
     toDatabaseFormats(options?: AnountFormatOptions): AmountFormats
     decimalToAtomic(options?: AnountFormatOptions): string
     atomicToDecimal(options?: AnountFormatOptions): number
+    roundDown(options?: AnountFormatOptions): Decimal
   }
 }
 
@@ -55,7 +61,7 @@ Decimal.set({
   toExpPos : 64, // Exponential notation for large numbers
   maxE     : 9e15, // Max exponent
   minE     : -9e15, // Min exponent
-  modulo   : Decimal.ROUND_DOWN, // Modulo mode
+  modulo   : Decimal.ROUND_DOWN,
 })
 
 /**
@@ -117,9 +123,15 @@ Decimal.prototype.atomicToDecimal = function (options?: AnountFormatOptions): nu
   return this.div(placements).toNumber()
 }
 
+Decimal.prototype.roundDown = function (options: AnountFormatOptions): Decimal {
+  const places = placesMap.get(options.currency)!
+
+  return this.toDecimalPlaces(places, Decimal.ROUND_DOWN)
+}
+
 /**
  * Safely converts a given value to a Decimal instance.
  */
 export const toDecimal = (value: Decimal.Value): Decimal => {
-  try { return new Decimal(value) } catch { throw new Error('Value not valid number') }
+  try { return new Decimal(value) } catch { throw new Error(`Value ${value} not valid number`) }
 }

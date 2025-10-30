@@ -98,3 +98,5 @@ export const getAbiFunctions = (input: any[] | string): string[] => {
     .filter((item: { type: string; name: any }) => item.type === 'function' && item.name)
     .map((item: { name: any }) => item.name)
 }
+
+export const chainIdToHex = (chainId: ChainId): string => '0x' + (chainId).toString(16)

@@ -18,7 +18,6 @@ export enum BullContext {
   Reaction = 'reaction',
   Slack = 'slack',
   RatingSystem = 'rating-system',
-  Trades = 'trades',
   Websocket = 'websocket',
   BalanceRequest = 'balance-request',
 }
