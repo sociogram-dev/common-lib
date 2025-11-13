@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger'
-import { Prop } from '@nestjs/mongoose'
 import { CurrencyCode } from './currency.utils'
 import { randomDecimal, randomInt } from './random.utils'
 import { getEnumValues, EnumType } from './types.utils'
@@ -276,29 +275,3 @@ export class ApiProp {
   }
 }
 
-/**
- * TODO: need to delete !!!
- * Decorate Field with Mongoose Prop and Swagger ApiProperty
- */
-export class ComposeProp extends ApiProp {
-  /**
-   * Internal builder method for constructing an all decorators with default and custom options.
-   *
-   * @param finalOptions - The base options (example, description, type).
-   * @param customOptions - Optional string description or full ApiPropertyOptions to override defaults.
-   * @returns The configured ApiProperty decorator.
-   */
-  static _build(finalOptions: ApiPropertyOptions, customOptions?: CustomOptions): PropertyDecorator {
-    const extendedDecorator = super._build(finalOptions, customOptions)
-    
-    return (target: any, propertyKey: string | symbol) => {
-      extendedDecorator(target, propertyKey)
-      Prop({ 
-        type    : finalOptions.type,
-        enum    : finalOptions.enum ? getEnumValues(finalOptions.enum as any) : undefined,
-        default : finalOptions.default,
-        required: finalOptions.required,
-      })(target, propertyKey)
-    }
-  }
-}
