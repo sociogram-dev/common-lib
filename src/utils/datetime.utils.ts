@@ -11,6 +11,15 @@ export enum Period {
   Year = 'year',
 }
 
+export enum PeriodFilter {
+  All = 'all',
+  Hour = 'hour',
+  Day = 'day',
+  Week = 'week',
+  Month = 'month',
+  Year = 'year',
+}
+
 /**
  * Enum representing predefined time ranges for filtering or querying data.
  */
