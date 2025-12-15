@@ -101,8 +101,6 @@ enum WebsocketJob {
 }
 
 enum UserJob {
-  UpdateTotalBalance = `${BullContext.User}.update-total-balance`,
-  UpdateTotalEarned = `${BullContext.User}.update-total-earned`,
   Reward = `${BullContext.User}.sociogram-reward`,
   Ban = `${BullContext.User}.sociogram-ban`,
   Unban = `${BullContext.User}.sociogram-unban`,
@@ -111,7 +109,6 @@ enum UserJob {
 
 enum UserServicesJob {
   UpdateBlockchainData = `${BullContext.UserServices}.update-blockchain-data`,
-  UpdateWalletBalances = `${BullContext.UserServices}.update-wallet-balances`,
   UpdateTwitterData = `${BullContext.UserServices}.update-twitter-data`,
 }
 
@@ -125,19 +122,19 @@ enum BalanceRequeseJob {
 }
 
 interface JobNameMap {
-  [BullContext.Analytic]      : typeof AnalyticJob,
-  [BullContext.Comment]       : typeof CommentJob,
-  [BullContext.Giveaway]      : typeof GiveawayJob,
-  [BullContext.Publication]   : typeof PublicationJob,
-  [BullContext.Reaction]      : typeof ReactionJob,
-  [BullContext.Slack]         : typeof SlackJob,
-  [BullContext.RatingSystem]  : typeof RatingSystemJob,
-  [BullContext.RewardPool]    : typeof RewardPoolJob,
-  [BullContext.Notification]  : typeof NotificationJob,
-  [BullContext.User]          : typeof UserJob,
-  [BullContext.UserServices]  : typeof UserServicesJob,
-  [BullContext.Websocket]     : typeof WebsocketJob,
-  [BullContext.Twitter]       : typeof TwitterJob,
+  [BullContext.Analytic] : typeof AnalyticJob,
+  [BullContext.Comment] : typeof CommentJob,
+  [BullContext.Giveaway] : typeof GiveawayJob,
+  [BullContext.Publication] : typeof PublicationJob,
+  [BullContext.Reaction] : typeof ReactionJob,
+  [BullContext.Slack] : typeof SlackJob,
+  [BullContext.RatingSystem] : typeof RatingSystemJob,
+  [BullContext.RewardPool] : typeof RewardPoolJob,
+  [BullContext.Notification] : typeof NotificationJob,
+  [BullContext.User] : typeof UserJob,
+  [BullContext.UserServices] : typeof UserServicesJob,
+  [BullContext.Websocket] : typeof WebsocketJob,
+  [BullContext.Twitter] : typeof TwitterJob,
   [BullContext.BalanceRequest]: typeof BalanceRequeseJob,
 }
 

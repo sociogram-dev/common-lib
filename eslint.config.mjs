@@ -16,12 +16,6 @@ export default defineConfig([
       'import': eslintImportPlugin,
     },
     rules: {
-      // '@stylistic/curly-newline': ["error", {
-      //   "ForInStatement": "always",
-      //   "ForOfStatement": { "multiline": true },
-      //   "ForStatement": "never",
-      //   "WhileStatement": { "multiline": true, "minElements": 3, "consistent": true }
-      // }],
       '@stylistic/explicit-function-return-type': 'off',
       '@stylistic/interface-name-prefix': 'off',
       '@stylistic/no-explicit-any': 'off',
@@ -29,15 +23,9 @@ export default defineConfig([
       '@stylistic/no-namespace': 'off',
       '@stylistic/no-duplicate-enum-values': 'off',
       '@stylistic/indent-binary-ops': [ 'error', 2 ],
-      // '@stylistic/type-annotation-spacing': [ 'error' ],
-      '@stylistic/no-multi-spaces': [ 'warn', {
-        exceptions: {
-          ImportDeclaration: true,
-          VariableDeclarator: true,
-          Property: true,
-        },
-      },
-      ],
+      '@stylistic/no-multi-spaces': [ 'off', {
+        'exceptions': { 'Property': true, 'ImportAttribute': true },
+      }],
       
       'spaced-comment': [ 'error', 'always', {
         'line': {
@@ -63,14 +51,12 @@ export default defineConfig([
         },
       } ],
       
-      
       '@stylistic/array-bracket-spacing': [ 'error', 'always', { arraysInArrays: false } ],
       'block-spacing': 'error',
       
       'comma-spacing': [ 'error', { 'before': false, 'after': true } ],
       'comma-dangle': [ 'error', 'only-multiline' ],
       'comma-style': [ 'error', 'last' ],
-      
       
       'quotes': [ 'error', 'single' ],
       'space-in-parens': [ 'error', 'never' ],
@@ -128,7 +114,7 @@ export default defineConfig([
       ],
       'import/newline-after-import': [ 'error', { 'count': 1 } ],
       '@stylistic/space-infix-ops': [ 'error', { int32Hint: false } ],
-      'no-restricted-imports': [ 'off', { 'patterns': [ '.*' ] } ],
+      'no-restricted-imports': [ 'error', { 'patterns': [ '.*' ] } ],
     },
   },
 ]);

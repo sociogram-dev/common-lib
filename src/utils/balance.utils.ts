@@ -35,14 +35,17 @@ export enum AccountType {
  * These represent funds that are isolated per context (e.g. campaign, ad unit, mini-app).
  */
 export enum ContextAccountType {
-  /** Balance for an Ad Unit — used to accumulate ad revenue from impressions, clicks, or engagement. */
+  /** Ad unit ифдфтсу — used to accumulate ad revenue from impressions, clicks, or engagement. */
   AdUnit = 'ad-unit',
 
-  /** Balance for a Campaign — used to allocate advertiser funds and track ad spending. */
+  /** Campaign balance — used to allocate advertiser funds and track ad spending. */
   Campaign = 'campaign',
 
-  /** Balance for a Mini App — used to store or distribute funds related to in-app transactions or rewards. */
+  /** Mini App balance — used to store or distribute funds related to in-app transactions or rewards. */
   MiniApp = 'mini-app',
+
+  /** Referrer balance — used to accumulate rewards from referral ads. */
+  Referrer = 'referrer'
 }
 
 /**
@@ -50,13 +53,13 @@ export enum ContextAccountType {
  */
 export enum TotalBalanceType {
   Accounts = 'accounts', // sum of all available balances
-  Earned = 'earned', // sum of all user earnings
-  Spent = 'spent', // sum of all user spent
+  Earned   = 'earned', // sum of all user earnings
+  Spent    = 'spent', // sum of all user spent
 }
 
 export enum BalanceStatus {
   Pending = 'pending',
-  Failed = 'failed',
+  Failed  = 'failed',
   Success = 'success',
 }
 
@@ -67,75 +70,76 @@ export enum GiveawayOperation {
 }
 
 export enum MiniAppOperation {
-  Deposit = 'mini-app.deposit',
-  Withdraw = 'mini-app.withdraw',
-  Sell = 'mini-app.sell',
-  Buy = 'mini-app.buy',
+  Buy      = 'mini-app.buy',
+  Deposit  = 'mini-app.deposit',
   Purchase = 'mini-app.purchase',
+  Sell     = 'mini-app.sell',
+  Withdraw = 'mini-app.withdraw',
 }
 
 export enum CampaignOperation {
-  Deposit = 'campaign.deposit',
-  Withdraw = 'campaign.withdraw',
-  Refund = 'campaign.refund',
-  Impression = 'campaign.impression' // viewed campaign on publisher site
+  Deposit    = 'campaign.deposit',
+  Impression = 'campaign.impression', // viewed campaign on publisher site
+  Refund     = 'campaign.refund',
+  Withdraw   = 'campaign.withdraw',
 }
 
 export enum AdUnitOperation {
-  Deposit = 'ad-unit.deposit',
+  Deposit  = 'ad-unit.deposit',
+  Earn     = 'ad-unit.earn',
   Withdraw = 'ad-unit.withdraw',
-  Earn = 'ad-unit.earn',
 }
 
 export enum PlatformOperation {
-  Reward = 'platform.reward',
-  Refund = 'platform.refund',
   AdsFee = 'platform.ads-fee',
+  Refund = 'platform.refund',
+  Reward = 'platform.reward',
 }
 
 export enum TransferOperation {
+  In  = 'balance.transfer-in',
   Out = 'balance.transfer-out',
-  In = 'balance.transfer-in',
 }
 
 export enum TreasureOperation {
-  Deposit = 'treasure.deposit',
+  Deposit    = 'treasure.deposit',
   Withdrawal = 'treasure.withdrawal',
 }
 
 export enum RewardPoolOperation {
   Deposit = 'reward-pool.deposit',
-  Earn = 'reward-pool.earn'
+  Earn    = 'reward-pool.earn'
 }
 
 export enum ReactionOperation {
-  GiveTips = 'reaction.give-tips',
-  GotTips = 'reaction.got-tips',
   DepositRewardPool = 'reaction.deposit-reward-pool',
-}
-
-/** @deprecated */
-export enum MemepadOperation {
-  TokenListed = 'memepad.token-listed',
-  CatchMeme = 'memepad.catch-meme',
-  DepositRewardPool = 'memepad.deposit-reward-pool',
+  GiveTips          = 'reaction.give-tips',
+  GotTips           = 'reaction.got-tips',
 }
 
 export enum ReferralOperation {
   Reward = 'referral.reward',
 }
 
-export type OperationType = TreasureOperation
-  | PlatformOperation
-  | MiniAppOperation
-  | CampaignOperation
+/** @deprecated */
+export enum MemepadOperation {
+  TokenListed       = 'memepad.token-listed',
+  CatchMeme         = 'memepad.catch-meme',
+  DepositRewardPool = 'memepad.deposit-reward-pool',
+}
+
+export type OperationType =
   | AdUnitOperation
+  | CampaignOperation
+  | GiveawayOperation
+  | MiniAppOperation
+  | PlatformOperation
   | RewardPoolOperation
   | ReactionOperation
-  | GiveawayOperation
-  | MemepadOperation
   | ReferralOperation
   | TransferOperation
+  | TreasureOperation
+  | MemepadOperation
 
 export enum SendOperation {
   GiveTips = 'send.give-tips',

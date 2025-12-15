@@ -134,7 +134,7 @@ export const TransformToAddress = () => {
   })
 }
 
-const valueToLowerCase = (value: string) => isSolanaAddress(value) ? value : value.toLowerCase()
+const valueToLowerCase = (value: string) => isSolanaAddress(value) ? value : (value ? value.toLowerCase() : value)
 
 /**
  * Transform incoming value string to lowercase.

@@ -1,6 +1,6 @@
 {
   "name": "@sociogram-dev/common-lib",
-  "version": "1.4.40",
+  "version": "1.4.46",
   "description": "Sociogram common library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,7 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
