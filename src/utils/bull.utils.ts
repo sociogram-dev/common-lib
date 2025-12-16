@@ -1,24 +1,22 @@
-import { Transaction } from 'ethers'
-
 /**
  * Bull queue contexts for different application domains.
  * Each context represents a separate queue for processing specific types of jobs.
  */
 export enum BullContext {
-  Analytic = 'analytic',
-  Giveaway = 'giveaway',
-  Twitter = 'twitter',
-  Notification = 'notification',
-  Publication = 'publication',
-  RewardPool = 'reward-pool',
-  Comment = 'comment',
-  Transaction = 'transaction',
-  User = 'user',
-  UserServices = 'user-services',
-  Reaction = 'reaction',
-  Slack = 'slack',
-  RatingSystem = 'rating-system',
-  Websocket = 'websocket',
+  Analytic       = 'analytic',
+  Giveaway       = 'giveaway',
+  Twitter        = 'twitter',
+  Notification   = 'notification',
+  Publication    = 'publication',
+  RewardPool     = 'reward-pool',
+  Comment        = 'comment',
+  Transaction    = 'transaction',
+  User           = 'user',
+  UserServices   = 'user-services',
+  Reaction       = 'reaction',
+  Slack          = 'slack',
+  RatingSystem   = 'rating-system',
+  Websocket      = 'websocket',
   BalanceRequest = 'balance-request',
 }
 
@@ -41,15 +39,15 @@ enum AnalyticJob {
  */
 enum CommentJob {
   RatingPoints = `${BullContext.Comment}.process-points`,
-  Interaction = `${BullContext.Comment}.process-interactions`,
-  ToDelete = `${BullContext.Comment}.process-delete `,
+  Interaction  = `${BullContext.Comment}.process-interactions`,
+  ToDelete     = `${BullContext.Comment}.process-delete `,
 }
 
 /**
  * Job names for Giveaway-related operations.
  */
 enum GiveawayJob {
-  ToFinish = `${BullContext.Giveaway}.to-finish`,
+  ToFinish      = `${BullContext.Giveaway}.to-finish`,
   CheckToFinish = `${BullContext.Giveaway}.check-to-finish`,
 }
 
@@ -102,19 +100,19 @@ enum WebsocketJob {
 
 enum UserJob {
   Reward = `${BullContext.User}.sociogram-reward`,
-  Ban = `${BullContext.User}.sociogram-ban`,
-  Unban = `${BullContext.User}.sociogram-unban`,
+  Ban    = `${BullContext.User}.sociogram-ban`,
+  Unban  = `${BullContext.User}.sociogram-unban`,
   Delete = `${BullContext.User}.delete-all-data`,
 }
 
 enum UserServicesJob {
   UpdateBlockchainData = `${BullContext.UserServices}.update-blockchain-data`,
-  UpdateTwitterData = `${BullContext.UserServices}.update-twitter-data`,
+  UpdateTwitterData    = `${BullContext.UserServices}.update-twitter-data`,
 }
 
 enum TwitterJob {
   CheckTweetByTag = `${BullContext.Twitter}.check-tweet-by-tag`,
-  CheckTweetById = `${BullContext.Twitter}.check-tweet-by-id`,
+  CheckTweetById  = `${BullContext.Twitter}.check-tweet-by-id`,
 }
 
 enum BalanceRequeseJob {
@@ -122,19 +120,19 @@ enum BalanceRequeseJob {
 }
 
 interface JobNameMap {
-  [BullContext.Analytic] : typeof AnalyticJob,
-  [BullContext.Comment] : typeof CommentJob,
-  [BullContext.Giveaway] : typeof GiveawayJob,
-  [BullContext.Publication] : typeof PublicationJob,
-  [BullContext.Reaction] : typeof ReactionJob,
-  [BullContext.Slack] : typeof SlackJob,
-  [BullContext.RatingSystem] : typeof RatingSystemJob,
-  [BullContext.RewardPool] : typeof RewardPoolJob,
-  [BullContext.Notification] : typeof NotificationJob,
-  [BullContext.User] : typeof UserJob,
-  [BullContext.UserServices] : typeof UserServicesJob,
-  [BullContext.Websocket] : typeof WebsocketJob,
-  [BullContext.Twitter] : typeof TwitterJob,
+  [BullContext.Analytic]      : typeof AnalyticJob,
+  [BullContext.Comment]       : typeof CommentJob,
+  [BullContext.Giveaway]      : typeof GiveawayJob,
+  [BullContext.Publication]   : typeof PublicationJob,
+  [BullContext.Reaction]      : typeof ReactionJob,
+  [BullContext.Slack]         : typeof SlackJob,
+  [BullContext.RatingSystem]  : typeof RatingSystemJob,
+  [BullContext.RewardPool]    : typeof RewardPoolJob,
+  [BullContext.Notification]  : typeof NotificationJob,
+  [BullContext.User]          : typeof UserJob,
+  [BullContext.UserServices]  : typeof UserServicesJob,
+  [BullContext.Websocket]     : typeof WebsocketJob,
+  [BullContext.Twitter]       : typeof TwitterJob,
   [BullContext.BalanceRequest]: typeof BalanceRequeseJob,
 }
 

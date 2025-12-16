@@ -28,6 +28,9 @@ export enum AccountType {
 
   /** Balance for developers — used to fund mini-apps. */
   Developer = 'developer',
+
+  /** Referrer balance — used to accumulate rewards from referral ads. */
+  Referrer = 'referrer'
 }
 
 /**
@@ -43,9 +46,6 @@ export enum ContextAccountType {
 
   /** Mini App balance — used to store or distribute funds related to in-app transactions or rewards. */
   MiniApp = 'mini-app',
-
-  /** Referrer balance — used to accumulate rewards from referral ads. */
-  Referrer = 'referrer'
 }
 
 /**
@@ -118,7 +118,8 @@ export enum ReactionOperation {
 }
 
 export enum ReferralOperation {
-  Reward = 'referral.reward',
+  Earn     = 'referral.earn',
+  Withdraw = 'referral.withdraw',
 }
 
 /** @deprecated */
